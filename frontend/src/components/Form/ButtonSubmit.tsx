@@ -11,11 +11,13 @@ const ButtonSubmit = ({title}: Props) => {
   )
 }
 
-const ButtonComponent = styled(Button)(({ theme }) => `
-  margin-top: 1rem;
-  border-radius: 1rem;
-  font-family: "Poppins";  
-`)
+const ButtonComponent = styled(Button)(({theme})=> ({
+
+  marginTop: "1rem",
+  borderRadius: "1rem",
+  fontFamily: "Poppins",
+
+}))
 
 
 

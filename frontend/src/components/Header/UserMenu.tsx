@@ -33,15 +33,17 @@ export const UserMenu = () => {
   )
 }
 
-const MenuContainer = styled('div')`
-  padding: 0 var(--padding-md);
-`
-const MenuButton = styled(Button)(({ theme }) => `
-  background-color: ${theme.palette.mode === 'light' ? '#e2eaee' : '#9aa5a7211'};
-  border: 1px solid gray;
-  border-radius: 0.8rem;
-  padding: 0 var(--padding-xxs);
-`)
+const MenuContainer = styled('div')({
+  padding: "0 var(--padding-md)",
+})
+
+const MenuButton = styled(Button)(({theme})=> ({
+  backgroundColor: theme.palette.mode === "light" ? "#e2eaee" : "#9aa5a7211",
+  border: "1px solid gray",
+  borderRadius: "0.8rem",
+  padding: "0 var(--padding-xxs)",
+}))
+
 
 
 

@@ -25,15 +25,13 @@ export const ThemeToggler = () => {
     )
 }
 
-const ThemeButton = styled(IconButton)(({ theme }) => `
-        :hover{
-            transform: ${theme.palette.mode === 'light' ? 'scale(0.8) rotate(25deg)' : 'scale(0.9) rotate(90deg)'} ;
-            transition: ease-in-out 250ms;
-        }    
-        
+const ThemeButton = styled(IconButton)(({theme})=> ({
 
-    `
-)
+    '&:hover': {
+        transform: theme.palette.mode === "light" ? "scale(0.8) rotate(25deg)" : "scale(0.9) rotate(90deg)",
+        transition: "ease-in-out 250ms",
+    }
+}))
 
 
 

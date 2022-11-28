@@ -33,8 +33,6 @@ export const Input = styled(TextField)`
 export const AuthContainer = styled('main')`
   width: 100vw;
   height: 100vh;
-
-  
 `
 export const Division = styled('div')`
   width: 100%;
@@ -106,8 +104,6 @@ export const SwitchButton = styled('button')(({ theme }) => `
    ${theme.breakpoints.down('md')}{
    margin: 1rem 6rem 0 0;
   }
-
-
   `)
 
 

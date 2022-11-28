@@ -5,4 +5,4 @@ export { default as ThemeToggler } from "./Header/ThemeToggler";
 export { default as Footer } from "./Footer/Footer";
 export { default as UserMenu } from "./Header/UserMenu";
 export { default as ButtonIcon } from "./Header/ButtonIcon";
-export { default as UserImage } from "./Header/UserImage";
+export { default as TypographyText } from "./Text/TypographyText";

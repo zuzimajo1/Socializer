@@ -33,6 +33,11 @@ export const UserAvatar = styled(Avatar)`
   margin-right: var(--spacing-2xl);
 `
 
+export const UserAvatar2 = styled(Avatar)`
+    width: 50px;
+    height: 50px;
+`
+
 export const ModalButton = styled(Button)(({ theme }) => `
   width: 540px;
   height: 50px;
@@ -69,3 +74,31 @@ export const ModalWrapper = styled('div')`
   padding: var(--padding-xs) var(--padding-md);
   border-bottom: 1px solid var(--border-color); 
 `
+
+export const ModalWrapper2 = styled('div')`
+  width: 100%;
+  height: 80%;
+  padding: var(--padding-xs) var(--padding-md);
+`
+export const ModalRow = styled('div')`
+  display: flex;
+  width: 100%;
+`
+
+export const ModalColumn = styled('div')`
+  width: auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+`
+
+export const ModalRow2 = styled('div')({
+  border: "1px solid var(--border-color)",
+  borderRadius: "var(--border-radius-sm)",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  width: "100%",
+})
+

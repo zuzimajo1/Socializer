@@ -13,11 +13,10 @@ const CheckPassword = ({Check}: Props) => {
   )
 }
 
-const FormControl = styled(FormControlLabel)`
-  font-family: 'Poppins'
+const FormControl = styled(FormControlLabel)(({theme})=> ({
+  fontFamily: "Poppins"
 
-
-`
+}))
 
 
 

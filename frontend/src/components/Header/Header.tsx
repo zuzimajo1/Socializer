@@ -31,23 +31,46 @@ export const Header = () => {
 
 
 
-const HeaderContainer = styled('header')(({ theme }) => `
-    width: 100vw;
-    height: 55px;
-    display: flex;
-    position: fixed;
-    align-items: center;
-    padding: 0 var(--padding-lg);
-    background-color: ${theme.palette.mode === 'light' ? 'var(--background-color-light)' : 'var(--background-color-dark)'};
+// const HeaderContainer = styled('header')(({ theme }) => `
+//     width: 100vw;
+//     height: 55px;
+//     display: flex;
+//     position: fixed;
+//     align-items: center;
+//     padding: 0 var(--padding-lg);
+//     background-color: ${theme.palette.mode === 'light' ? 'var(--background-color-light)' : 'var(--background-color-dark)'};
 
-    ${theme.breakpoints.down('md')}{
-      padding: 0 var(--padding-md);
-    }
+//     ${theme.breakpoints.down('md')}{
+//       padding: 0 var(--padding-md);
+//     }
 
-      ${theme.breakpoints.down('sm')}{
-      padding: 0 var(--padding-xxs);
-}
-`)
+//       ${theme.breakpoints.down('sm')}{
+//       padding: 0 var(--padding-xxs);
+// }
+// `)
+
+const HeaderContainer = styled('header')(({theme})=> ({
+  width: "100vw",
+  height: "55px",
+  display: "flex",
+  position: "fixed",
+  alignItems: "center",
+  padding: "0 var(--padding-lg)",
+  backgroundColor: theme.palette.mode === "light" ? "var(--background-color-light)" : "var(--background-color-dark)",
+
+
+  [theme.breakpoints.down('md')] : {
+    padding: "0 var(--padding-md)",
+  },
+
+  [theme.breakpoints.down('sm')] : {
+    padding: "0 var(--padding-xxs)",
+  }
+
+
+
+}))
+
 
 const Image = styled('img')`
   width: 50px;
