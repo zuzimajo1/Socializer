@@ -3,10 +3,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import React, { useState } from 'react'
 
-
-
 export const UserMenu = () => {
-
   const [AnchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(AnchorEl);
 
