@@ -6,3 +6,4 @@ export { default as Footer } from "./Footer/Footer";
 export { default as UserMenu } from "./Header/UserMenu";
 export { default as ButtonIcon } from "./Header/ButtonIcon";
 export { default as TypographyText } from "./Text/TypographyText";
+export { default as PostModal } from "./Modal/PostModal";
