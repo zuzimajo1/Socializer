@@ -69,9 +69,14 @@ body::-webkit-scrollbar-thumb {
     --text-color-dark: rgb(226, 213, 213);
     --text-color-light: rgb(80, 79, 79);
 
+    --maintext-color-dark: rgb(240, 236, 236);
+    --maintext-color-light: rgb(53, 51, 51);
+
+    
+
     --border-color: #817d7d;
 
-    --border-radius-sm: 12px;
+    --border-radius-sm: 8px;
     --border-radius-md: 15px;
     --border-radius-lg: 21px;
 
@@ -86,6 +91,12 @@ body::-webkit-scrollbar-thumb {
 
 }
 
+@font-face {
+    font-family: "Poppins";
+    src: url("/fonts/Poppins-SemiBold.ttf") format("truetype");
+    font-weight: 600;
+}
+
 
 @font-face {
     font-family: "Poppins";
@@ -97,7 +108,6 @@ body::-webkit-scrollbar-thumb {
     font-family: "Poppins";
     src: url("/fonts/Poppins-Regular.ttf") format("truetype");
     font-weight: 400;
-    
 }
 
 
