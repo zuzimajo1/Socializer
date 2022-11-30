@@ -3,7 +3,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { CssBaseline, PaletteMode } from '@mui/material';
 import ThemeToggler from './components/Header/ThemeToggler';
 import "./App.css"
-import { Auth, Home } from './pages';
+import { Auth, ErrorPage, Home } from './pages';
 export const ColorModeContext = createContext({ toggleThemeMode: () => { } });
 
 const App = () => {
@@ -12,7 +12,7 @@ const App = () => {
   const colorMode = useMemo(
     () => ({
       toggleThemeMode: () => {
-        setMode((prevMode : PaletteMode) => (prevMode === 'light' ? 'dark' : 'light'));
+        setMode((prevMode: PaletteMode) => (prevMode === 'light' ? 'dark' : 'light'));
       },
     }),
     [],
@@ -33,7 +33,7 @@ const App = () => {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Home/>
+        <ErrorPage />
       </ThemeProvider>
     </ColorModeContext.Provider>
   )

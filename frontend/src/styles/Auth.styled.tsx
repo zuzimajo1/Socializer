@@ -78,7 +78,7 @@ export const AuthWrapperContainer = styled('div')(({ theme }) => ({
   height: "100vh",
   display: "flex",
   paddingTop: "4.5rem",
-  backgroundColor: theme.palette.mode === "light" ? "#fff" : "var(--background-color-dark)",
+
 
   [theme.breakpoints.down("md")]: {
     flexDirection: "column",
