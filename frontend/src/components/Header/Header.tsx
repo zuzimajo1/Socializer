@@ -6,8 +6,13 @@ import UserMenu from './UserMenu';
 import ButtonIcon from './ButtonIcon';
 import HomeIcon from '@mui/icons-material/Home';
 
-export const Header = () => {
-  const HandleClick = ()=> {
+interface Props {
+  login : boolean;
+}
+
+
+export const Header = ({ login }: Props) => {
+  const HandleClick = () => {
     console.log("Hello")
   }
 
@@ -17,8 +22,12 @@ export const Header = () => {
         <Image src={Logo} alt="Logo"></Image>
       </FirstDivision>
       <SecondDivision>
-        <ButtonIcon fontSize='medium' Click={HandleClick} Icon={HomeIcon} title="Press to navigate/refresh" />
-        <UserMenu/>
+        {login &&
+          <>
+            <ButtonIcon fontSize='medium' Click={HandleClick} Icon={HomeIcon} title="Press to navigate/refresh" />
+            <UserMenu />
+          </>
+        }
         <ThemeToggler />
       </SecondDivision>
     </HeaderContainer>
@@ -27,7 +36,7 @@ export const Header = () => {
 
 
 
-const HeaderContainer = styled('header')(({theme})=> ({
+const HeaderContainer = styled('header')(({ theme }) => ({
   width: "100%",
   height: "55px",
   zIndex: "99",
@@ -37,18 +46,18 @@ const HeaderContainer = styled('header')(({theme})=> ({
   padding: "0 var(--padding-lg)",
   backgroundColor: theme.palette.mode === "light" ? "var(--background-color-light)" : "var(--background-color-dark)",
 
-  [theme.breakpoints.down('md')] : {
+  [theme.breakpoints.down('md')]: {
     padding: "0 var(--padding-md)",
   },
 
-  
+
 }))
 
 const Image = styled('img')({
   width: "50px",
   height: "50px",
 })
- 
+
 const FirstDivision = styled('div')({
   width: "100%",
   height: "100%",

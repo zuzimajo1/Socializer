@@ -14,7 +14,7 @@ const Home = () => {
 
   return (
     <AuthContainer>
-      <Header />
+      <Header login />
       <HomeContainer>
         <HomeDivision>
           <StickyProfile />

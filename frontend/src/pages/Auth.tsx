@@ -7,7 +7,7 @@ import People from "../assets/People.svg";
 const Auth = () => {
   return (
     <AuthContainer>
-      <Header />
+      <Header login={false}/>
       <AuthWrapper />
     </AuthContainer>
   )

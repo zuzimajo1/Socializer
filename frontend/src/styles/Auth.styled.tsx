@@ -75,13 +75,14 @@ export const Division2 = styled('div')(({ theme }) => ({
 export const AuthWrapperContainer = styled('div')(({ theme }) => ({
 
   width: "100%",
-  height: "100%",
+  height: "100vh",
   display: "flex",
-  paddingTop: "3rem",
+  paddingTop: "4.5rem",
   backgroundColor: theme.palette.mode === "light" ? "#fff" : "var(--background-color-dark)",
 
   [theme.breakpoints.down("md")]: {
     flexDirection: "column",
+    height: "auto",
   }
 
 }))
