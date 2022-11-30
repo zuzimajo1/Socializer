@@ -27,7 +27,7 @@ const Home = () => {
               <ModalContainer>
                 <ModalWrapper>
                   <TypographyText variant="h6" text="Create a Post" />
-                  <ButtonIcon Click={HandleClose} Icon={CloseIcon} />
+                  <ButtonIcon fontSize='medium' Click={HandleClose} Icon={CloseIcon} />
                 </ModalWrapper>
                 <ModalWrapper2>
                   <ModalRow>

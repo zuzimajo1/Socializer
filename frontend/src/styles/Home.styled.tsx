@@ -1,42 +1,108 @@
 import { Button, styled, TextField, Typography, Avatar, Modal } from '@mui/material';
 
-export const HomeContainer = styled('div')`
-  display: flex;
-  padding-top: 4.5rem;
-`
-export const HomeDivision = styled('div')({
-  flex: "100%",
+export const HomeContainer = styled('div')(({theme})=>({
+  width: "100%",
+  display: "flex",
+  justifyContent: "center",
+  paddingTop: "4.5rem",
+
+  [theme.breakpoints.down("lg")] :{
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  
+  }
+
+}))
+
+
+export const HomeDivision = styled('div')(({theme})=>({
+
+  flex: "1",
   height: "auto",
   display: "flex",
   justifyContent: "end",
-})
+ 
+  
+  [theme.breakpoints.down("lg")]: {
+    justifyContent: "center",
+    width: "700px",
+    padding: "var(--padding-sm) var(--padding-md)",
+  },
+
+  [theme.breakpoints.down("md")]: {
+    width: "650px",
+  },
+
+  [theme.breakpoints.down("sm")]: {
+    width: "100%",
+    }
+}))
 
 
-export const HomeDivision2 = styled('div')`
-    flex: 2;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    padding: 0 var(--padding-md);
-`
 
-export const HomeDivision3 = styled('div')({
-  width: "100%",
+export const HomeDivision2 = styled('div')(({theme})=>({
+  flex: "2",
+  height: "auto",
+  display: "flex",
+  flexDirection: "column",
+  padding: "0 var(--padding-md)",
+
+  
+  [theme.breakpoints.down("lg")] : {
+    width: "700px",
+    
+  },
+
+  [theme.breakpoints.down("md")]: {
+    width: "650px",
+  },
+
+  [theme.breakpoints.down("sm")]: {
+     width: "100%",
+  }
+}))
+
+
+
+export const HomeDivision3 = styled('div')(({theme})=>({
+
+  flex: "1",
   height: "auto",
   display: "flex",
   justifyContent: 'start',
-})
+  
 
-export const Post = styled('div')(({ theme }) => `  
-    width: 100%;
-    height: 15vh;
-    padding: 0 var(--padding-md);
-    background-color: ${theme.palette.mode === 'light' ? 'var(--background-color-light)' : 'var(--background-color-dark)'};
-    border-radius: var(--border-radius-sm);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-`)
+  [theme.breakpoints.down("lg")]: {
+    justifyContent: "center",
+    width: "700px",
+    padding: "0 var(--padding-md)",
+  },
+
+  [theme.breakpoints.down("md")]: {
+    width: "650px",
+
+  },
+
+
+  [theme.breakpoints.down("sm")]: {
+  width: "100%",
+  }
+  
+}))
+
+export const Post = styled('div')(({ theme }) => ({
+
+  width: "100%",
+  height: "15vh",
+  padding: "0 var(--padding-md)",
+  backgroundColor: theme.palette.mode === "light" ? "var(--background-color-light)" : "var(--background-color-dark)",
+  borderRadius: "var(--border-radius-sm)",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+
+}))
 
 export const UserAvatar = styled(Avatar)`
   width: 60px;
@@ -108,11 +174,11 @@ export const ModalRow = styled('div')({
 
 
 export const ModalColumn = styled('div')({
-  width: "auto",
+  width: "100%",
   height: "100%",
   display: "flex",
   flexDirection: "column",
-  marginLeft: "10px"
+  marginLeft: "10px",
 })
 
 
@@ -123,6 +189,7 @@ export const ModalRow2 = styled('div')({
   justifyContent: "center",
   alignItems: "center",
   width: "80px",
+
 })
 
 

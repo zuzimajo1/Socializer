@@ -30,6 +30,15 @@ const StickyContainer = styled('div')(({ theme }) => ({
     alignItems: "center",
     backgroundColor: theme.palette.mode === "light" ? "var(--background-color-light)" : "var(--background-color-dark)",
     borderRadius: "var(--border-radius-sm)",
+
+  [theme.breakpoints.down("lg")]: {
+    width: "100%",
+    padding: "0 var(--padding-md)",
+    position: "none",
+    top: "0",
+
+    
+  }
 }))
 
 const Wrapper = styled('div')({
@@ -38,6 +47,8 @@ const Wrapper = styled('div')({
     height: "auto",
     justifyContent: "center",
     alignItems: "center",
+   
+   
 })
 
 

@@ -8,22 +8,40 @@ import moment from "moment";
 import SingleComment, { Container } from './SingleComment';
 import ButtonSubmit from '../Form/ButtonSubmit';
 import TypographyMainText from '../Text/TypographyMainText';
+import ButtonIcon from '../Header/ButtonIcon';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import DeleteMenu from '../Header/DeleteMenu';
+
 const SinglePost = (props: PostProps) => {
     const { _id, userOwner, post, comments, createdAt, updatedAt, __v } = props;
-    const [comment, setcomment ] = useState<string | null>();
+    const [comment, setcomment] = useState<string | null>();
 
-    const HandleComment = (e: React.ChangeEvent<HTMLTextAreaElement>): void =>{
+    const HandleComment = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
         setcomment(e.currentTarget.value);
     }
 
-    console.log(comment);
+    const [AnchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+    const open = Boolean(AnchorEl);
+
+
+    const HandleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        setAnchorEl(event.currentTarget);
+    }
+    const HandleClose = () => {
+        setAnchorEl(null);
+    }
+
 
     return (
         <SinglePostContainer>
             <ModalRow>
                 <UserAvatar2 src="https://img.freepik.com/free-photo/close-up-young-successful-man-smiling-camera-standing-casual-outfit-against-blue-background_1258-66609.jpg?w=2000" alt="User" />
                 <ModalColumn>
-                    <TypographyMainText padding="0.2rem" variant="subtitle1" text={`${userOwner.firstname} ${userOwner.lastname}`} />
+                    <FirstRow>
+                        <TypographyMainText padding="0" variant="subtitle1" text={`${userOwner.firstname} ${userOwner.lastname}`} />
+                        <ButtonIcon fontSize='small' Icon={MoreVertIcon} Click={HandleClick} />
+                        <DeleteMenu AnchorEl={AnchorEl} Close={HandleClose} open={open} />
+                    </FirstRow>
                     <ModalRow2>
                         <TypographyText variant="subtitle2" text={`${moment(createdAt).fromNow(true)}`} />
                         <PublicIcon fontSize='small' />
@@ -42,7 +60,7 @@ const SinglePost = (props: PostProps) => {
             </MarginContainer2>
             <Container>
                 <UserAvatar2 src="https://img.freepik.com/free-photo/close-up-young-successful-man-smiling-camera-standing-casual-outfit-against-blue-background_1258-66609.jpg?w=2000" alt="User" />
-                <TextField onChange={HandleComment} sx={{marginLeft: "var(--padding-sm)"}} size="small" variant="outlined" type="text" fullWidth rows={1} multiline label="Add a comment..." />
+                <TextField onChange={HandleComment} sx={{ marginLeft: "var(--padding-sm)" }} size="small" variant="outlined" type="text" fullWidth rows={1} multiline label="Add a comment..." />
             </Container>
             {comment && <ModalRow3>
                 <ButtonSubmit title="Post" />
@@ -60,6 +78,14 @@ const SinglePostContainer = styled('div')(({ theme }) => ({
     padding: "var(--padding-md) var(--padding-lg)",
 
 }))
+
+export const FirstRow = styled('div')({
+    width: "100%",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "start",
+})
+
 
 const MarginContainer = styled('div')({
     width: "100%",

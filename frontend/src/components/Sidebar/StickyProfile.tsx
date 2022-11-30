@@ -26,6 +26,14 @@ const StickyContainer = styled('div')(({theme})=>({
     backgroundColor: theme.palette.mode === "light" ? "var(--background-color-light)" : "var(--background-color-dark)",
     borderRadius: "var(--border-radius-sm)",
 
+
+  [theme.breakpoints.down("lg")]: {
+    width: "100%",
+    position: "none",
+    top: "0",
+    padding: "0 var(--padding-md)",
+  }
+
 }))
 
 const UserImage = styled(Avatar)({

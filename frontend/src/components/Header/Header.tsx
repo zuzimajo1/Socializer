@@ -17,7 +17,7 @@ export const Header = () => {
         <Image src={Logo} alt="Logo"></Image>
       </FirstDivision>
       <SecondDivision>
-        <ButtonIcon Click={HandleClick} Icon={HomeIcon} title="Press to navigate/refresh" />
+        <ButtonIcon fontSize='medium' Click={HandleClick} Icon={HomeIcon} title="Press to navigate/refresh" />
         <UserMenu/>
         <ThemeToggler />
       </SecondDivision>
@@ -28,7 +28,7 @@ export const Header = () => {
 
 
 const HeaderContainer = styled('header')(({theme})=> ({
-  width: "100vw",
+  width: "100%",
   height: "55px",
   zIndex: "99",
   display: "flex",
@@ -41,9 +41,7 @@ const HeaderContainer = styled('header')(({theme})=> ({
     padding: "0 var(--padding-md)",
   },
 
-  [theme.breakpoints.down('sm')] : {
-    padding: "0 var(--padding-xxs)",
-  }
+  
 }))
 
 const Image = styled('img')({
@@ -52,14 +50,14 @@ const Image = styled('img')({
 })
  
 const FirstDivision = styled('div')({
-  flex: "1",
+  width: "100%",
   height: "100%",
   display: "flex",
   alignItems: "center",
 })
 
 const SecondDivision = styled('div')({
-  flex: "1",
+  width: "100%",
   height: "100%",
   display: "flex",
   alignItems: "center",
