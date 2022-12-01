@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Comments } from '../../utils/config';
-import { styled } from '@mui/material';
+import { styled, Typography } from '@mui/material';
 import TypographyText from '../Text/TypographyText';
 import TypographyMainText from '../Text/TypographyMainText';
 import { UserAvatar2 } from '../../styles/Home.styled';
@@ -8,6 +8,7 @@ import { FirstRow } from './SinglePost';
 import ButtonIcon from '../Header/ButtonIcon';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import DeleteMenu from '../Header/DeleteMenu';
+import moment from 'moment';
 
 const SingleComment = (props: Comments) => {
     const { _id, user, comments, createdAt, updatedAt } = props;
@@ -28,7 +29,10 @@ const SingleComment = (props: Comments) => {
             <UserAvatar2 src="https://img.freepik.com/free-photo/close-up-young-successful-man-smiling-camera-standing-casual-outfit-against-blue-background_1258-66609.jpg?w=2000" alt="User" />
             <CommentContainer>
                 <FirstRow>
-                <TypographyMainText padding="0.8rem" variant="subtitle2" text={`${user.firstname} ${user.lastname}`} />
+                    <Division>
+                        <TypographyMainText padding="0.8rem" variant="subtitle2" text={`${user.firstname} ${user.lastname}`} />
+                        <CommentCreatedAt >•{moment(createdAt).fromNow(true)}</CommentCreatedAt>
+                    </Division>
                     <ButtonIcon fontSize='small' Icon={MoreVertIcon} Click={HandleClick} />
                     <DeleteMenu Close={HandleClose} AnchorEl={AnchorEl} open={open} />
                 </FirstRow>
@@ -43,6 +47,19 @@ export const Container = styled('div')({
     height: "auto",
     display: "flex",
     marginTop: "var(--padding-sm)"
+})
+
+const CommentCreatedAt = styled(Typography)(({theme})=>({
+    marginLeft: "0.6rem",
+    color: theme.palette.mode === 'light' ? 'var(--text-color-light)' : 'var(--text-color-dark)',
+    fontSize: "var(--font-size-xs)"
+}))
+
+
+export const Division = styled('div')({
+    width: "100%",
+    display: "flex",
+    justifyContent: "start",
 })
 
 
