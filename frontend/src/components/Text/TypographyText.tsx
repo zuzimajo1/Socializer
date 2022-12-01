@@ -7,11 +7,10 @@ type Props = {
     
 }
 
-const TypographyText: React.FC<Props> = ({ text, variant }) => {
+const TypographyText = ({ text, variant } : Props) => {
     return (
-        <Text  variant={variant} >{text}</Text>
-    )
-}
+        <Text variant={variant} >{text}</Text>
+    )}
 
 const Text = styled(Typography)(({ theme }) => ({
     fontFamily: "Poppins",

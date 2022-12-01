@@ -3,7 +3,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { CssBaseline, PaletteMode } from '@mui/material';
 import ThemeToggler from './components/Header/ThemeToggler';
 import "./App.css"
-import { Auth, ErrorPage, Home } from './pages';
+import { Auth, Home, NotFound } from './pages';
 export const ColorModeContext = createContext({ toggleThemeMode: () => { } });
 
 const App = () => {
@@ -33,7 +33,7 @@ const App = () => {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <ErrorPage />
+        <Home />
       </ThemeProvider>
     </ColorModeContext.Provider>
   )

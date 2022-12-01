@@ -3,7 +3,7 @@ import { ButtonSubmit, Header, TypographyMainText, TypographyText } from '../com
 import { AuthContainer, AuthWrapperContainer, Division2 } from '../styles/Auth.styled';
 import { styled } from "@mui/material";
 
-const ErrorPage = () => {
+const NotFound = () => {
   return (
     <AuthContainer>
       <Header login />
@@ -30,4 +30,4 @@ const ErrorContainer = styled('div')({
   display: "flex",
 })
 
-export default ErrorPage
+export default NotFound
