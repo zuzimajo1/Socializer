@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Comments } from '../../utils/config';
 import { styled, Typography } from '@mui/material';
 import TypographyText from '../Text/TypographyText';
-import TypographyMainText from '../Text/TypographyMainText';
 import { UserAvatar2 } from '../../styles/Home.styled';
 import { FirstRow } from './SinglePost';
 import ButtonIcon from '../Header/ButtonIcon';
@@ -30,13 +29,13 @@ const SingleComment = (props: Comments) => {
             <CommentContainer>
                 <FirstRow>
                     <Division>
-                        <TypographyMainText padding="0.8rem" variant="subtitle2" text={`${user.firstname} ${user.lastname}`} />
+                        <TypographyText fontweigth="500" lightcolor="var(--maintext-color-light)" darkcolor='var(--maintext-color-dark)'  padding="0 0.8rem 0 0" variant="subtitle2" text={`${user.firstname} ${user.lastname}`} />
                         <CommentCreatedAt >•{moment(createdAt).fromNow(true)}</CommentCreatedAt>
                     </Division>
                     <ButtonIcon fontSize='small' Icon={MoreVertIcon} Click={HandleClick} />
                     <DeleteMenu Close={HandleClose} AnchorEl={AnchorEl} open={open} />
                 </FirstRow>
-                <TypographyText variant="subtitle2" text={comments} />
+                <TypographyText fontweigth="400" lightcolor="var(--text-color-light)" darkcolor='var(--text-color-dark)' variant="subtitle2" text={comments} />
             </CommentContainer>
         </Container>
     )
