@@ -4,19 +4,28 @@ import { styled, Typography } from '@mui/material';
 type Props = {
     text: string;
     variant: "button" | "caption" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "overline" | "subtitle1" | "subtitle2" | "body1" | "body2";
+    fontweigth?:  "400" | "500" | "600";
+    padding?: string;
+    lightcolor?: string;
+    darkcolor?: string;
+    textTransform?: "capitalize" | "lowercase" | "uppercase",
     
 }
 
-const TypographyText = ({ text, variant } : Props) => {
+const TypographyText = (props : Props) => {
+ 
     return (
-        <Text variant={variant} >{text}</Text>
+        <Text {...props}>{props.text}</Text>
     )}
 
-const Text = styled(Typography)(({ theme }) => ({
+const Text = styled(Typography)<Props>(({ theme, fontweigth, textTransform, padding, lightcolor, darkcolor }) => ({
+    padding,
+    textTransform,
+    fontWeigth: fontweigth,
     fontFamily: "Poppins",
-    fontWeight: 400,
-    color: theme.palette.mode === 'light' ? 'var(--text-color-light)' : 'var(--text-color-dark)',
+    color: theme.palette.mode === 'light' ? lightcolor : darkcolor ,
     textAlign: "justify",
+   
 }))
 
 
