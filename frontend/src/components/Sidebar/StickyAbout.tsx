@@ -2,7 +2,7 @@ import React from 'react';
 import { styled } from "@mui/material";
 import Logo from "../../assets/Logo.png";
 import TypographyText from '../Text/TypographyText';
-import TypographyMainText from '../Text/TypographyMainText';
+
 
 const StickyAbout = () => {
     const year = new Date().getFullYear();
@@ -10,10 +10,10 @@ const StickyAbout = () => {
     <StickyContainer>
           <Wrapper>
             <LogoImage src={Logo} alt="Logo"/>
-            <TypographyMainText padding="0" variant="h6" text="Socializer" />
+           <TypographyText lightcolor="var(--maintext-color-light)" darkcolor="var(--maintext-color-dark)" variant="h6" text="Socializer" />
           </Wrapper>
           <Wrapper>
-             <TypographyText variant="subtitle2" text={`All Right Reserved ${year}`}></TypographyText>   
+             <TypographyText lightcolor="var(--text-color-light)" darkcolor="var(--text-color-dark)" variant="subtitle2" text={`All Right Reserved ${year}`}></TypographyText>   
           </Wrapper>
     </StickyContainer>
   )
