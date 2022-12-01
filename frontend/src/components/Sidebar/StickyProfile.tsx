@@ -1,15 +1,13 @@
 import React from 'react'
 import { styled, Container, Avatar } from '@mui/material'
 import TypographyText from '../Text/TypographyText'
-import TypographyMainText from '../Text/TypographyMainText'
-
 
 
 const StickyProfile = () => {
   return (
     <StickyContainer>
         <UserImage src="https://img.freepik.com/free-photo/close-up-young-successful-man-smiling-camera-standing-casual-outfit-against-blue-background_1258-66609.jpg?w=2000" alt="User" />
-        <TypographyMainText padding="0" variant="subtitle1" text="Zuzim Ajo"/>
+        <TypographyText lightcolor="var(--maintext-color-light)" darkcolor="var(--maintext-color-dark)" variant="subtitle1" text="Zuzim Ajo"/>
     </StickyContainer>
   )
 }
