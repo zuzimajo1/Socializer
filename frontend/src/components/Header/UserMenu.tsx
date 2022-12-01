@@ -1,7 +1,7 @@
-import { Tab, Tabs, styled, useTheme, Button, Menu, Avatar, MenuItem } from '@mui/material'
-import HomeIcon from '@mui/icons-material/Home';
+import {  styled, useTheme, Button, Menu,  MenuItem } from '@mui/material'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import React, { useState } from 'react'
+import UserAvatar from '../Image/UserAvatar';
 
 export const UserMenu = () => {
   const [AnchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -19,7 +19,7 @@ export const UserMenu = () => {
   return (
     <MenuContainer>
       <MenuButton variant="text" onClick={HandleClick}>
-        <Avatar sx={{ marginRight: '1rem' }} alt="User" src="https://img.freepik.com/free-photo/close-up-young-successful-man-smiling-camera-standing-casual-outfit-against-blue-background_1258-66609.jpg?w=2000" />
+        <UserAvatar width="40px" height="40px" margin="0 1rem 0 0.5rem" src="https://img.freepik.com/free-photo/close-up-young-successful-man-smiling-camera-standing-casual-outfit-against-blue-background_1258-66609.jpg?w=2000" alt="User" />
         <ArrowDropDownIcon fontSize='medium' sx={{ color: theme.palette.mode === 'light' ? 'var(--maintext-light)' : 'var(--maintext-dark)' }} />
       </MenuButton>
       <Menu anchorEl={AnchorEl} open={open} onClose={HandleClose}>
