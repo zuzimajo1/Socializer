@@ -7,7 +7,6 @@ import PublicIcon from '@mui/icons-material/Public';
 import moment from "moment";
 import SingleComment, { Container } from './SingleComment';
 import ButtonSubmit from '../Form/ButtonSubmit';
-import TypographyMainText from '../Text/TypographyMainText';
 import ButtonIcon from '../Header/ButtonIcon';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import DeleteMenu from '../Header/DeleteMenu';
@@ -38,16 +37,16 @@ const SinglePost = (props: PostProps) => {
                 <UserAvatar2 src="https://img.freepik.com/free-photo/close-up-young-successful-man-smiling-camera-standing-casual-outfit-against-blue-background_1258-66609.jpg?w=2000" alt="User" />
                 <ModalColumn>
                     <FirstRow>
-                        <TypographyMainText padding="0" variant="subtitle1" text={`${userOwner.firstname} ${userOwner.lastname}`} />
+                        <TypographyText textTransform="capitalize" fontweigth="600" lightcolor="var(--maintext-color-light)" darkcolor="var(--maintext-color-dark)" variant="subtitle1" text={`${userOwner.firstname} ${userOwner.lastname}`} />
                         <ButtonIcon fontSize='small' Icon={MoreVertIcon} Click={HandleClick} />
                         <DeleteMenu AnchorEl={AnchorEl} Close={HandleClose} open={open} />
                     </FirstRow>
                     <ModalRow2>
-                        <TypographyText variant="subtitle2" text={`${moment(createdAt).fromNow(true)}`} />
+                        <TypographyText fontweigth="400" lightcolor="var(--text-color-light)" darkcolor="var(--text-color-dark)" variant="subtitle2" text={`${moment(createdAt).fromNow(true)}`} />
                         <PublicIcon fontSize='small' />
                     </ModalRow2>
                     <MarginContainer>
-                        <TypographyText variant="subtitle2" text={post} />
+                        <TypographyText fontweigth="400" lightcolor="var(--text-color-light)" darkcolor="var(--text-color-dark)"  variant="subtitle2" text={post} />
                     </MarginContainer>
                 </ModalColumn>
             </ModalRow>
