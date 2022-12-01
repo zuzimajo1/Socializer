@@ -10,5 +10,4 @@ export { default as StickyProfile } from "./Sidebar/StickyProfile";
 export { default as StickyAbout } from "./Sidebar/StickyAbout";
 export { default as SinglePost } from "./Post/SinglePost";
 export { default as SingleComment } from "./Post/SingleComment"; 
-export { default as TypographyMainText } from "./Text/TypographyMainText";
 export { default as DeleteMenu } from "./Header/DeleteMenu"
