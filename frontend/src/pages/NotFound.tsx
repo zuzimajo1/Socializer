@@ -1,25 +1,25 @@
 import React from 'react';
-import { ButtonSubmit, Header, TypographyMainText, TypographyText } from '../components';
-import { AuthContainer, AuthWrapperContainer, Division2 } from '../styles/Auth.styled';
+import { ButtonSubmit, Header, TypographyText } from '../components';
 import { styled } from "@mui/material";
+import { FullWidthCenterVerticalContainer, MainContainer } from '../styles/Containers.styled';
 
 const NotFound = () => {
   return (
-    <AuthContainer>
+    <MainContainer>
       <Header login />
-      <Error/>
-    </AuthContainer>
+      <Error />
+    </MainContainer>
   )
 }
 
-const Error = ()=>{
-  return(
+const Error = () => {
+  return (
     <ErrorContainer>
-      <Division2>
-        <TypographyMainText variant="h2" padding="0" text="404 Page"></TypographyMainText>
-        <TypographyText variant="h6" text="You are trying to access an unknown page"></TypographyText>
+      <FullWidthCenterVerticalContainer>
+        <TypographyText variant="h2" fontweigth="600" lightcolor="var(--maintext-color-light)" darkcolor="var(--maintext-color-dark)"  text="404 Not Found"></TypographyText>
+        <TypographyText variant="h6" fontweigth="400" lightcolor="var(--text-color-light)" darkcolor="var(--text-color-dark)"  text="You are trying to access an unknown page"></TypographyText>
         <ButtonSubmit title='Redirect to Home' />
-      </Division2>
+      </FullWidthCenterVerticalContainer>
     </ErrorContainer>
   )
 }

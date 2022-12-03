@@ -1,54 +1,53 @@
-import React, { useState } from 'react';
-import { Button, Container, styled, Typography, FormControlLabel, Checkbox, TextField } from '@mui/material';
-import { AuthContainer, AuthWrapperContainer, Division, Division2, Form, FormContainer, Image, Input, Subtext, SwitchButton, Text } from '../styles/Auth.styled';
-import { ButtonSubmit, CheckPassword, Header } from '../components';
+import { useState } from 'react';
+import { Form, Image, Input, SwitchButton } from '../styles/Auth.styled';
+import { ButtonSubmit, CheckPassword, Header, TypographyText } from '../components';
+import {  FullPaddingContainer, FullWidthCenterVerticalContainer, MainContainer, FullWidthStartVertificalContainer, AutoVerticalContainer } from '../styles/Containers.styled';
 import People from "../assets/People.svg";
 
 const Auth = () => {
   return (
-    <AuthContainer>
-      <Header login={false}/>
+    <MainContainer>
+      <Header login={false} />
       <AuthWrapper />
-    </AuthContainer>
+    </MainContainer>
   )
 }
 
 const AuthWrapper = () => {
   const [showRegisterForm, setshowRegisterForm] = useState<boolean>(false);
   return (
-    <AuthWrapperContainer>
-      <Division>
-        <Text variant='h2'>Socializer</Text>
-        <Subtext variant='h4'>Let your friends know what's on your mind.</Subtext>
+    <FullPaddingContainer>
+      <FullWidthStartVertificalContainer alignItems="start">
+        <TypographyText fontSize="clamp(2.7rem, 7vw, 3.5rem)" fontweigth="500" lightcolor="var(--maintext-light)" darkcolor="var(--maintext-dark)" variant="h2"  text="Socializer" />
+        <TypographyText fontSize="clamp(1rem, 3vw, var(--font-size-2xl))" lightcolor="var(--subtext-light)" darkcolor="var(--subtext-dark)" fontweigth="400" variant="h2" text="Socializer"/>
         <Image src={People} alt="People"></Image>
-      </Division>
-      <Division2>
+      </FullWidthStartVertificalContainer>
+      <FullWidthCenterVerticalContainer>
         {showRegisterForm ? <RegisterForm /> : <LoginForm />}
         <SwitchButton onClick={() => setshowRegisterForm((s) => !s)}>{showRegisterForm ? `Already have account? Login` : `Don't have account? Register`} </SwitchButton>
-      </Division2>
-    </AuthWrapperContainer>
+      </FullWidthCenterVerticalContainer>
+    </FullPaddingContainer>
   )
 }
 
 const LoginForm = () => {
   const [check, setcheck] = useState<boolean>(false);
   return (
-    <FormContainer>
+    <AutoVerticalContainer>
       <Form>
         <Input size='small' label='Email' name='email' />
         <Input size='small' label='Password' type={check ? 'text' : 'password'} name='password' />
         <CheckPassword Check={setcheck} />
         <ButtonSubmit title="Login" />
       </Form>
-      <Typography></Typography>
-    </FormContainer>
+    </AutoVerticalContainer>
   )
 }
 
 const RegisterForm = () => {
   const [check, setcheck] = useState<boolean>(false);
   return (
-    <FormContainer>
+    <AutoVerticalContainer>
       <Form>
         <Input size='small' label='Firstname' name='firstname' />
         <Input size='small' label='Lastname' name='lastname' />
@@ -58,7 +57,7 @@ const RegisterForm = () => {
         <CheckPassword Check={setcheck} />
         <ButtonSubmit title="Register" />
       </Form>
-    </FormContainer>
+    </AutoVerticalContainer>
   )
 }
 

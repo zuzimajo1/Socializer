@@ -1,31 +1,23 @@
-
-
-*, ::before, ::after {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+*,
+::before,
+::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
-body{
-    width: 100%;
-    height: 100vh;
-    /* overflow-x : hidden; */
-   
-  
+body {
+  width: 100%;
+  height: 100vh;
 }
-
-
-
-
-
 
 body::-webkit-scrollbar {
-  width: 12px;               
+  width: 12px;
 }
 /* width of the entire scrollbar */
 
 body::-webkit-scrollbar-track {
-  background: rgb(90, 89, 87);        
+  background: rgb(90, 89, 87);
 }
 /* color of the tracking area */
 
@@ -33,94 +25,79 @@ body::-webkit-scrollbar-track {
 /* roundness of the scroll thumb */
 /* creates padding around scroll thumb */
 body::-webkit-scrollbar-thumb {
-  background-color: rgb(109, 109, 117);   
-  border-radius: 20px;      
+  background-color: rgb(109, 109, 117);
+  border-radius: 20px;
   border: 3px solid rgb(134, 131, 131);
 }
 
+:root {
+  /*Font size */
+  --font-size-xs: 0.8rem;
+  --font-size-sm: 0.9rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.2rem;
+  --font-size-xl: 1.4rem;
+  --font-size-2xl: 1.6rem;
 
-:root{  
-    /*Font size */
-    --font-size-xs: 0.8rem;
-    --font-size-sm: 0.9rem;
-    --font-size-md: 1rem;
-    --font-size-lg: 1.2rem;
-    --font-size-xl: 1.4rem;
-    --font-size-2xl: 1.6rem;
-    
+  /*Spacing */
+  --spacing-xs: 2px;
+  --spacicng-sm: 4px;
+  --spacing-md: 6px;
+  --spacing-lg: 8px;
+  --spacing-xl: 10px;
+  --spacing-2xl: 13px;
 
-    /*Spacing */
-    --spacing-xs: 2px;
-    --spacicng-sm:4px;
-    --spacing-md: 6px;
-    --spacing-lg: 8px;
-    --spacing-xl: 10px;
-    --spacing-2xl: 13px;
+  --padding-xs: 0.5rem;
+  --padding-sm: 0.8rem;
+  --padding-md: 1.1rem;
+  --padding-lg: 1.4rem;
+  --padding-xl: 1.7rem;
+  --padding-2xl: 2rem;
+  --padding-3xl: 2.2rem;
+  --padding-4xl: 2.4rem;
+  --padding-5xl: 2.6rem;
+  --padding-6xl: 2.8rem;
+  --padding-7xl: 3rem;
+  --padding-8xl: 3.2rem;
 
+  /*Colors */
+  --maintext-light: #7eaedf;
+  --maintext-dark: #98a9a8;
+  --subtext-light: rgb(149, 173, 197);
+  --subtext-dark: #808b8b;
+  --header-width: 55px;
 
-    --padding-xs: 0.5rem;
-    --padding-sm: 0.8rem;
-    --padding-md: 1.1rem;
-    --padding-lg: 1.4rem;
-    --padding-xl: 1.7rem;
-    --padding-2xl: 2rem;
-    --padding-3xl: 2.2rem;
-    --padding-4xl: 2.4rem;
-    --padding-5xl: 2.6rem;
-    --padding-6xl: 2.8rem;
-    --padding-7xl: 3rem;
-    --padding-8xl: 3.2rem;
+  --text-color-dark: rgb(226, 213, 213);
+  --text-color-light: rgb(80, 79, 79);
 
-    /*Colors */
-    --maintext-light: #7eaedf;
-    --maintext-dark : #98A9A8;
-    --subtext-light: rgb(149, 173, 197);
-    --subtext-dark: #808b8b;
-    --header-width: 55px;
+  --maintext-color-dark: rgb(240, 236, 236);
+  --maintext-color-light: rgb(53, 51, 51);
 
-    --text-color-dark: rgb(226, 213, 213);
-    --text-color-light: rgb(80, 79, 79);
+  --border-color: #817d7d;
 
-    --maintext-color-dark: rgb(240, 236, 236);
-    --maintext-color-light: rgb(53, 51, 51);
+  --border-radius-sm: 8px;
+  --border-radius-md: 15px;
+  --border-radius-lg: 21px;
 
-    
-
-    --border-color: #817d7d;
-
-    --border-radius-sm: 8px;
-    --border-radius-md: 15px;
-    --border-radius-lg: 21px;
-
-
-    --font-family: 'Poppins';
-    --background-color-dark: #242526;
-    --background-color-light: #eeeeee;
-  
-
-
-
-
+  --font-family: "Poppins";
+  --background-color-dark: #242526;
+  --background-color-light: #eeeeee;
 }
 
 @font-face {
-    font-family: "Poppins";
-    src: url("/fonts/Poppins-SemiBold.ttf") format("truetype");
-    font-weight: 600;
-}
-
-
-@font-face {
-    font-family: "Poppins";
-    src: url("/fonts/Poppins-Medium.ttf") format("truetype");
-    font-weight: 500;
+  font-family: "Poppins";
+  src: url("/fonts/Poppins-SemiBold.ttf") format("truetype");
+  font-weight: 600;
 }
 
 @font-face {
-    font-family: "Poppins";
-    src: url("/fonts/Poppins-Regular.ttf") format("truetype");
-    font-weight: 400;
+  font-family: "Poppins";
+  src: url("/fonts/Poppins-Medium.ttf") format("truetype");
+  font-weight: 500;
 }
 
-
-
+@font-face {
+  font-family: "Poppins";
+  src: url("/fonts/Poppins-Regular.ttf") format("truetype");
+  font-weight: 400;
+}

@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { ButtonIcon, ButtonSubmit, Header, SinglePost, StickyAbout, StickyProfile, TypographyText } from '../components';
-import { Avatar, Modal, Typography, styled, TextField } from "@mui/material";
-import { AuthContainer } from '../styles/Auth.styled'
-import { HomeContainer, HomeDivision, HomeDivision2, HomeDivision3, ModalButton, ModalColumn, ModalContainer, ModalRow, ModalRow2, ModalRow3, ModalWrapper, ModalWrapper2, Post, PostField, PostMain, UserAvatar, UserAvatar2, } from '../styles/Home.styled'
+import { ButtonIcon, ButtonSubmit, Header, SinglePost, StickyAbout, StickyProfile, TypographyText, UserAvatar } from '../components';
+import { HomeDivision, HomeDivision2, HomeDivision3, ModalButton, ModalContainer, ModalWrapper, Post, PostField } from '../styles/Home.styled'
+import { Container, FullWidthCenterPaddingContainer, MainContainer } from '../styles/Containers.styled';
+import { Modal } from "@mui/material";
 import { Posts, PostProps } from '../utils/config';
 import CloseIcon from '@mui/icons-material/Close';
 import PublicIcon from '@mui/icons-material/Public';
@@ -13,15 +13,15 @@ const Home = () => {
   const HandleClose = () => setOpen(false);
 
   return (
-    <AuthContainer>
+    <MainContainer>
       <Header login />
-      <HomeContainer>
+      <FullWidthCenterPaddingContainer>
         <HomeDivision>
           <StickyProfile />
         </HomeDivision>
         <HomeDivision2>
           <Post>
-            <UserAvatar src="https://img.freepik.com/free-photo/close-up-young-successful-man-smiling-camera-standing-casual-outfit-against-blue-background_1258-66609.jpg?w=2000" alt="User" />
+            <UserAvatar margin="0 0.5rem 0" width="60px" height="60px" src="https://img.freepik.com/free-photo/close-up-young-successful-man-smiling-camera-standing-casual-outfit-against-blue-background_1258-66609.jpg?w=2000" alt="User" />
             <ModalButton size='medium' variant="text" onClick={HandleOpen} >What's on your mind? Zuzim</ModalButton>
             <Modal open={open} onClose={HandleClose}>
               <ModalContainer>
@@ -29,36 +29,36 @@ const Home = () => {
                   <TypographyText variant="h6" text="Create a Post" />
                   <ButtonIcon fontSize='medium' Click={HandleClose} Icon={CloseIcon} />
                 </ModalWrapper>
-                <ModalWrapper2>
-                  <ModalRow>
-                    <UserAvatar2 src="https://img.freepik.com/free-photo/close-up-young-successful-man-smiling-camera-standing-casual-outfit-against-blue-background_1258-66609.jpg?w=2000" alt="User" />
-                    <ModalColumn>
+                <Container width="100%" height="80%" padding="var(--padding-xs) var(--padding-md)" >
+                  <Container display="flex" width="100%">
+                    <UserAvatar width="50px" height="50px" src="https://img.freepik.com/free-photo/close-up-young-successful-man-smiling-camera-standing-casual-outfit-against-blue-background_1258-66609.jpg?w=2000" alt="User" />
+                    <Container width="100%" display="flex" vertical margin="0 0 0 10px"  >
                       <TypographyText variant="subtitle1" text="Zuzim Ajo" />
-                      <ModalRow2>
+                      <Container border="1px solid var(--border-color)" borderRadius='var(--border-radius-sm)' display="flex" justifyContent="center" alignItems="center" width="80px"  >
                         <PublicIcon fontSize='small' />
                         <TypographyText variant="subtitle2" text="Public" />
-                      </ModalRow2>
-                    </ModalColumn>
-                  </ModalRow>
+                      </Container>
+                    </Container>
+                  </Container>
                   <PostField variant='filled' type="text" fullWidth rows={5} multiline label="What do you want to talk about?" />
-                  <ModalRow3>
+                    <Container width="100%" display="flex" justifyContent="end">
                     <ButtonSubmit title="Post" />
-                  </ModalRow3>
-                </ModalWrapper2>
+                    </Container>
+                </Container>
               </ModalContainer>
             </Modal>
           </Post>
-          <PostMain>
+          <Container width="100%" margin='var(--padding-md) 0 0 0' >
             {Posts.map((props: PostProps) => (
               <SinglePost key={props._id} {...props} />
-            ))}
-          </PostMain>
+              ))}
+           </Container>
         </HomeDivision2>
         <HomeDivision3>
           <StickyAbout />
         </HomeDivision3>
-      </HomeContainer>
-    </AuthContainer>
+      </FullWidthCenterPaddingContainer>
+    </MainContainer>
   )
 }
 

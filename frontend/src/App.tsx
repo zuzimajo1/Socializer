@@ -1,9 +1,8 @@
 import { useState, useMemo, createContext } from 'react'
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { CssBaseline, PaletteMode } from '@mui/material';
-import ThemeToggler from './components/Header/ThemeToggler';
 import "./App.css"
-import { Auth, Home, NotFound } from './pages';
+import { Auth, Home, NotFound, Profile } from './pages';
 export const ColorModeContext = createContext({ toggleThemeMode: () => { } });
 
 const App = () => {
@@ -33,7 +32,7 @@ const App = () => {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Home />
+        <Home/>
       </ThemeProvider>
     </ColorModeContext.Provider>
   )

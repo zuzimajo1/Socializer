@@ -16,6 +16,9 @@ export const HomeContainer = styled('div')(({theme})=>({
 }))
 
 
+
+
+
 export const HomeDivision = styled('div')(({theme})=>({
 
   flex: "1",
@@ -36,7 +39,7 @@ export const HomeDivision = styled('div')(({theme})=>({
 
   [theme.breakpoints.down("sm")]: {
     width: "100%",
-    }
+  }
 }))
 
 
@@ -104,28 +107,19 @@ export const Post = styled('div')(({ theme }) => ({
 
 }))
 
-export const UserAvatar = styled(Avatar)`
-  width: 60px;
-  height: 60px;
-  margin-right: var(--spacing-2xl);
-`
 
-export const UserAvatar2 = styled(Avatar)`
-    width: 50px;
-    height: 50px;
-`
+export const ModalButton = styled(Button)(({ theme }) =>  ({
 
-export const ModalButton = styled(Button)(({ theme }) => `
-  width: 540px;
-  height: 50px;
-  border-radius: var(--border-radius-lg);
-  font-family: "Poppins";
-  text-transform: none;
-  text-align: left;
-  color: ${theme.palette.mode === 'light' ? 'var(--text-color-light)' : 'var(--text-color-dark)'};
-  border: 1px solid var(--border-color);
-`)
+  width: "540px",
+  height: "50px",
+  borderRadius: "var(--border-radius-lg)",
+  fontFamily: "Poppins",
+  textTransform: "none",
+  textAlign: "left",
+  color: theme.palette.mode === "light" ? "var(--text-color-light)" : "var(--text-color-dark)",
+  border: "1px solid var(--border-color)",
 
+}))
 
 export const ModalContainer = styled('div')(({ theme }) => ({
   width: "500px",
@@ -155,51 +149,8 @@ export const ModalWrapper = styled('div')({
   borderBottom: "1px solid var(--border-color)",
 })
 
-
-export const ModalWrapper2 = styled('div')({
-  width: "100%",
-  height: "80%",
-  padding: "var(--padding-xs) var(--padding-md)"
-})
-
 export const PostField = styled(TextField)({
   marginTop: "var(--padding-sm)",
 
 })
 
-export const ModalRow = styled('div')({
-  display: "flex",
-  width: "100%",
-})
-
-
-export const ModalColumn = styled('div')({
-  width: "100%",
-  height: "100%",
-  display: "flex",
-  flexDirection: "column",
-  marginLeft: "10px",
-})
-
-
-export const ModalRow2 = styled('div')({
-  border: "1px solid var(--border-color)",
-  borderRadius: "var(--border-radius-sm)",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  width: "80px",
-
-})
-
-
-export const ModalRow3 = styled('div')({
-  width: "100%",
-  display: "flex",
-  justifyContent: "end",
-})
-
-export const PostMain = styled('div')({
-  width: "100%",
-  marginTop: "var(--padding-md)",
-})
