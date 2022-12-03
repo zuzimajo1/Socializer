@@ -1,4 +1,3 @@
-import React from 'react'
 import { styled, Typography } from '@mui/material';
 
 type Props = {
@@ -9,7 +8,7 @@ type Props = {
     lightcolor?: string;
     darkcolor?: string;
     textTransform?: "capitalize" | "lowercase" | "uppercase",
-    
+    fontSize?: string;
 }
 
 const TypographyText = (props : Props) => {
@@ -18,7 +17,8 @@ const TypographyText = (props : Props) => {
         <Text {...props}>{props.text}</Text>
     )}
 
-const Text = styled(Typography)<Props>(({ theme, fontweigth, textTransform, padding, lightcolor, darkcolor }) => ({
+const Text = styled(Typography)<Props>(({ fontSize, theme, fontweigth, textTransform, padding, lightcolor, darkcolor }) => ({
+    fontSize,
     padding,
     textTransform,
     fontWeigth: fontweigth,
