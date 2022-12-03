@@ -1,6 +1,6 @@
-import React from 'react';
 import { styled } from "@mui/material";
 import Logo from "../../assets/Logo.png";
+import UserAvatar from "../Image/UserAvatar";
 import TypographyText from '../Text/TypographyText';
 
 
@@ -9,11 +9,11 @@ const StickyAbout = () => {
   return (
     <StickyContainer>
           <Wrapper>
-            <LogoImage src={Logo} alt="Logo"/>
+            <UserAvatar width="50px" height="50px" src={Logo} alt="Logo"/>
            <TypographyText lightcolor="var(--maintext-color-light)" darkcolor="var(--maintext-color-dark)" variant="h6" text="Socializer" />
           </Wrapper>
           <Wrapper>
-             <TypographyText lightcolor="var(--text-color-light)" darkcolor="var(--text-color-dark)" variant="subtitle2" text={`All Right Reserved ${year}`}></TypographyText>   
+             <TypographyText lightcolor="var(--text-color-light)" darkcolor="var(--text-color-dark)" variant="subtitle2" text={`All Rights Reserved ${year}`}></TypographyText>   
           </Wrapper>
     </StickyContainer>
   )
