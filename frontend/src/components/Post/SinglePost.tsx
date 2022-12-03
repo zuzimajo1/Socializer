@@ -1,15 +1,16 @@
 import React, { useState } from 'react'
 import { PostProps, Comments } from '../../utils/config';
-import { AvatarGroup, styled, TextField } from "@mui/material";
-import { ModalColumn, ModalRow, ModalRow2, ModalRow3, UserAvatar2 } from '../../styles/Home.styled';
+import { styled, TextField } from "@mui/material";
 import TypographyText from '../Text/TypographyText';
 import PublicIcon from '@mui/icons-material/Public';
 import moment from "moment";
-import SingleComment, { Container } from './SingleComment';
+import SingleComment from './SingleComment';
 import ButtonSubmit from '../Form/ButtonSubmit';
 import ButtonIcon from '../Header/ButtonIcon';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import DeleteMenu from '../Header/DeleteMenu';
+import UserAvatar from '../Image/UserAvatar';
+import { Container } from '../../styles/Containers.styled';
 
 const SinglePost = (props: PostProps) => {
     const { _id, userOwner, post, comments, createdAt, updatedAt, __v } = props;
@@ -33,37 +34,37 @@ const SinglePost = (props: PostProps) => {
 
     return (
         <SinglePostContainer>
-            <ModalRow>
-                <UserAvatar2 src="https://img.freepik.com/free-photo/close-up-young-successful-man-smiling-camera-standing-casual-outfit-against-blue-background_1258-66609.jpg?w=2000" alt="User" />
-                <ModalColumn>
-                    <FirstRow>
+            <Container display="flex" width="100%" >
+                <UserAvatar width="50px" height="50px" src="https://img.freepik.com/free-photo/close-up-young-successful-man-smiling-camera-standing-casual-outfit-against-blue-background_1258-66609.jpg?w=2000" alt="User" />
+                <Container width="100%" height="100%" display="flex" vertical margin="0 0 0 10px"  >
+                    <Container width="100%" display="flex" justifyContent="space-between" alignItems="start">
                         <TypographyText textTransform="capitalize" fontweigth="600" lightcolor="var(--maintext-color-light)" darkcolor="var(--maintext-color-dark)" variant="subtitle1" text={`${userOwner.firstname} ${userOwner.lastname}`} />
                         <ButtonIcon fontSize='small' Icon={MoreVertIcon} Click={HandleClick} />
                         <DeleteMenu AnchorEl={AnchorEl} Close={HandleClose} open={open} />
-                    </FirstRow>
-                    <ModalRow2>
+                    </Container>
+                    <Container border="1px solid var(--border-color)" borderRadius="var(--border-radius-sm)" display="flex"  justifyContent="center"  alignItems="center" width="80px"  >
                         <TypographyText fontweigth="400" lightcolor="var(--text-color-light)" darkcolor="var(--text-color-dark)" variant="subtitle2" text={`${moment(createdAt).fromNow(true)}`} />
                         <PublicIcon fontSize='small' />
-                    </ModalRow2>
-                    <MarginContainer>
+                    </Container>
+                    <Container width="100%" margin="var(--padding-md) 0 0 0">
                         <TypographyText fontweigth="400" lightcolor="var(--text-color-light)" darkcolor="var(--text-color-dark)"  variant="subtitle2" text={post} />
-                    </MarginContainer>
-                </ModalColumn>
-            </ModalRow>
+                    </Container>
+                </Container>
+            </Container>
             <MarginContainer2 >
                 {comments?.map((props: Comments) => (
-                    <MarginContainer key={props._id}>
+                    <Container width="100%" margin="var(--padding-md) 0 0 0"   key={props._id}>
                         <SingleComment  {...props} />
-                    </MarginContainer>
+                    </Container>
                 ))}
             </MarginContainer2>
-            <Container>
-                <UserAvatar2 src="https://img.freepik.com/free-photo/close-up-young-successful-man-smiling-camera-standing-casual-outfit-against-blue-background_1258-66609.jpg?w=2000" alt="User" />
+            <Container width="100%" height="auto" display="flex" margin="var(--padding-sm) 0 0 0">
+                <UserAvatar width="50px" height="50px" src="https://img.freepik.com/free-photo/close-up-young-successful-man-smiling-camera-standing-casual-outfit-against-blue-background_1258-66609.jpg?w=2000" alt="User" />
                 <TextField onChange={HandleComment} sx={{ marginLeft: "var(--padding-sm)" }} size="small" variant="outlined" type="text" fullWidth rows={1} multiline label="Add a comment..." />
             </Container>
-            {comment && <ModalRow3>
+            {comment && <Container width="100%" display="flex" justifyContent="end"   >
                 <ButtonSubmit title="Post" />
-            </ModalRow3>}
+            </Container>}
         </SinglePostContainer>
     )
 }
@@ -78,18 +79,6 @@ const SinglePostContainer = styled('div')(({ theme }) => ({
 
 }))
 
-export const FirstRow = styled('div')({
-    width: "100%",
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "start",
-})
-
-
-const MarginContainer = styled('div')({
-    width: "100%",
-    marginTop: "var(--padding-md)"
-})
 
 const MarginContainer2 = styled('div')({
     width: "100%",
