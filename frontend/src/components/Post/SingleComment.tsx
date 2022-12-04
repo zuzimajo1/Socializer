@@ -16,12 +16,8 @@ const SingleComment = (props: Comments) => {
     const open = Boolean(AnchorEl);
 
 
-    const HandleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        setAnchorEl(event.currentTarget);
-    }
-    const HandleClose = () => {
-        setAnchorEl(null);
-    }
+    const HandleClick = (event: React.MouseEvent<HTMLButtonElement>) => setAnchorEl(event.currentTarget);
+    const HandleClose = () => setAnchorEl(null);
 
     return (
         <Container width="100%" height="auto" display="flex" margin="var(--padding-sm) 0 0 0">
