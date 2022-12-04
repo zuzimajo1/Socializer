@@ -16,20 +16,13 @@ const SinglePost = (props: PostProps) => {
     const { _id, userOwner, post, comments, createdAt, updatedAt, __v } = props;
     const [comment, setcomment] = useState<string | null>();
 
-    const HandleComment = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
-        setcomment(e.currentTarget.value);
-    }
+    const HandleComment = (e: React.ChangeEvent<HTMLTextAreaElement>): void => setcomment(e.currentTarget.value);
 
     const [AnchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
     const open = Boolean(AnchorEl);
 
-
-    const HandleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        setAnchorEl(event.currentTarget);
-    }
-    const HandleClose = () => {
-        setAnchorEl(null);
-    }
+    const HandleClick = (event: React.MouseEvent<HTMLButtonElement>) => setAnchorEl(event.currentTarget);
+    const HandleClose = () => setAnchorEl(null);
 
 
     return (
