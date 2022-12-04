@@ -125,7 +125,7 @@ export const ModalContainer = styled('div')(({ theme }) => ({
   width: "500px",
   height: "auto",
   position: "absolute",
-  top: "30%",
+  top: "40%",
   left: "50%",
   padding: "var(--padding-xs) 0",
   borderRadius: "var(--border-radius-sm)",

@@ -18,7 +18,7 @@ const Error = () => {
       <FullWidthCenterVerticalContainer>
         <TypographyText variant="h2" fontweigth="600" lightcolor="var(--maintext-color-light)" darkcolor="var(--maintext-color-dark)"  text="404 Not Found"></TypographyText>
         <TypographyText variant="h6" fontweigth="400" lightcolor="var(--text-color-light)" darkcolor="var(--text-color-dark)"  text="You are trying to access an unknown page"></TypographyText>
-        <ButtonSubmit title='Redirect to Home' />
+        <ButtonSubmit variant="contained" title='Redirect to Home' />
       </FullWidthCenterVerticalContainer>
     </ErrorContainer>
   )

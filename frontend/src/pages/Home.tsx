@@ -42,7 +42,7 @@ const Home = () => {
                   </Container>
                   <PostField variant='filled' type="text" fullWidth rows={5} multiline label="What do you want to talk about?" />
                     <Container width="100%" display="flex" justifyContent="end">
-                    <ButtonSubmit title="Post" />
+                    <ButtonSubmit variant="contained" title="Post" />
                     </Container>
                 </Container>
               </ModalContainer>

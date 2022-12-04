@@ -38,7 +38,7 @@ const LoginForm = () => {
         <Input size='small' label='Email' name='email' />
         <Input size='small' label='Password' type={check ? 'text' : 'password'} name='password' />
         <CheckPassword Check={setcheck} />
-        <ButtonSubmit title="Login" />
+        <ButtonSubmit variant="contained" title="Login" />
       </Form>
     </AutoVerticalContainer>
   )
@@ -55,7 +55,7 @@ const RegisterForm = () => {
         <Input size='small' label='Password' type={check ? 'text' : 'password'} name='password' />
         <Input size='small' label='Confirm Password' type={check ? 'text' : 'password'} name='confirmpassword' />
         <CheckPassword Check={setcheck} />
-        <ButtonSubmit title="Register" />
+        <ButtonSubmit variant="contained" title="Register" />
       </Form>
     </AutoVerticalContainer>
   )

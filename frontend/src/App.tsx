@@ -3,6 +3,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { CssBaseline, PaletteMode } from '@mui/material';
 import "./App.css"
 import { Auth, Home, NotFound, Profile } from './pages';
+import { SnackbarProvider } from 'notistack';
 export const ColorModeContext = createContext({ toggleThemeMode: () => { } });
 
 const App = () => {
@@ -29,12 +30,14 @@ const App = () => {
   );
 
   return (
+    <SnackbarProvider maxSnack={3} preventDuplicate autoHideDuration={3000}>
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Home/>
+        <Profile/>
       </ThemeProvider>
     </ColorModeContext.Provider>
+    </SnackbarProvider>
   )
 }
 
