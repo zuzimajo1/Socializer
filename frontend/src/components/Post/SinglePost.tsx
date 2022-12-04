@@ -56,7 +56,7 @@ const SinglePost = (props: PostProps) => {
                 <TextField onChange={HandleComment} sx={{ marginLeft: "var(--padding-sm)" }} size="small" variant="outlined" type="text" fullWidth rows={1} multiline label="Add a comment..." />
             </Container>
             {comment && <Container width="100%" display="flex" justifyContent="end"   >
-                <ButtonSubmit title="Post" />
+                <ButtonSubmit variant="outlined" title="Post" />
             </Container>}
         </SinglePostContainer>
     )
