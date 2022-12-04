@@ -1,7 +1,9 @@
-import {  styled, useTheme, Button, Menu,  MenuItem } from '@mui/material'
+import { styled, useTheme, Button, Menu, MenuItem, ListItemIcon } from '@mui/material'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import React, { useState } from 'react'
 import UserAvatar from '../Image/UserAvatar';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 export const UserMenu = () => {
   const [AnchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -22,9 +24,23 @@ export const UserMenu = () => {
         <UserAvatar width="40px" height="40px" margin="0 1rem 0 0.5rem" src="https://img.freepik.com/free-photo/close-up-young-successful-man-smiling-camera-standing-casual-outfit-against-blue-background_1258-66609.jpg?w=2000" alt="User" />
         <ArrowDropDownIcon fontSize='medium' sx={{ color: theme.palette.mode === 'light' ? 'var(--maintext-light)' : 'var(--maintext-dark)' }} />
       </MenuButton>
-      <Menu anchorEl={AnchorEl} open={open} onClose={HandleClose}>
-        <MenuItem>Change Password</MenuItem>
-        <MenuItem>Logout</MenuItem>
+      <Menu sx={{ padding: "var(--padding-sm) var(--padding-md)" }} anchorEl={AnchorEl} open={open} onClose={HandleClose}>
+        <MenuItem>
+          <ListItemIcon>
+            <AccountCircleIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemIcon>
+            Profile
+          </ListItemIcon>
+        </MenuItem>
+        <MenuItem>
+          <ListItemIcon>
+            <LogoutIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemIcon>
+            Logout
+          </ListItemIcon>
+        </MenuItem>
       </Menu>
     </MenuContainer>
   )
