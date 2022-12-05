@@ -1,19 +1,20 @@
 import React, { useState } from 'react'
-import { PostProps, Comments } from '../../utils/config';
 import { styled, TextField } from "@mui/material";
-import TypographyText from '../Text/TypographyText';
 import PublicIcon from '@mui/icons-material/Public';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import moment from "moment";
+
 import SingleComment from './SingleComment';
 import ButtonSubmit from '../Form/ButtonSubmit';
 import ButtonIcon from '../Header/ButtonIcon';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import DeleteMenu from '../Header/DeleteMenu';
 import UserAvatar from '../Image/UserAvatar';
+import { PostProps, Comments } from '../../utils/config';
+import TypographyText from '../Text/TypographyText';
 import { Container } from '../../styles/Containers.styled';
 
 const SinglePost = (props: PostProps) => {
-    const { _id, userOwner, post, comments, createdAt, updatedAt, __v } = props;
+    const { _id, userOwner, post, comments, createdAt} = props;
     const [comment, setcomment] = useState<string | null>();
 
     const HandleComment = (e: React.ChangeEvent<HTMLTextAreaElement>): void => setcomment(e.currentTarget.value);
