@@ -1,10 +1,11 @@
-import React, { useContext } from 'react'
-import { darken, styled, useTheme } from '@mui/material/styles';
+import { useContext } from 'react'
+import {  styled, useTheme } from '@mui/material/styles';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import NightsStayIcon from '@mui/icons-material/NightsStay';
 import { IconButton, Tooltip } from '@mui/material';
-import { ColorModeContext } from '../../App';
 import { amber } from '@mui/material/colors';
+
+import { ColorModeContext } from '../../App';
 
 export const ThemeToggler = () => {
     const theme = useTheme();
