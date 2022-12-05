@@ -1,11 +1,11 @@
-import { Container, styled, ToggleButton } from '@mui/material';
-import React from 'react';
+import { styled } from '@mui/material';
+import { useSnackbar  } from "notistack";
+import HomeIcon from '@mui/icons-material/Home';
+
 import ThemeToggler from './ThemeToggler';
 import Logo from "../../assets/Logo.png";
 import UserMenu from './UserMenu';
 import ButtonIcon from './ButtonIcon';
-import HomeIcon from '@mui/icons-material/Home';
-import { useSnackbar, VariantType  } from "notistack";
 
 interface Props {
   login : boolean;
