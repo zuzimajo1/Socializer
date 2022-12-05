@@ -1,9 +1,10 @@
+import React, { useState } from 'react'
 import { styled, useTheme, Button, Menu, MenuItem, ListItemIcon } from '@mui/material'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import React, { useState } from 'react'
-import UserAvatar from '../Image/UserAvatar';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
+
+import UserAvatar from '../Image/UserAvatar';
 
 export const UserMenu = () => {
   const [AnchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
