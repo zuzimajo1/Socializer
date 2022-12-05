@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { Comments } from '../../utils/config';
 import { styled, Typography } from '@mui/material';
-import TypographyText from '../Text/TypographyText';
-import ButtonIcon from '../Header/ButtonIcon';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import DeleteMenu from '../Header/DeleteMenu';
 import moment from 'moment';
+
 import UserAvatar from '../Image/UserAvatar';
 import { Container } from '../../styles/Containers.styled';
+import { Comments } from '../../utils/config';
+import TypographyText from '../Text/TypographyText';
+import ButtonIcon from '../Header/ButtonIcon';
+import DeleteMenu from '../Header/DeleteMenu';
 
 const SingleComment = (props: Comments) => {
     const { _id, user, comments, createdAt, updatedAt } = props;
