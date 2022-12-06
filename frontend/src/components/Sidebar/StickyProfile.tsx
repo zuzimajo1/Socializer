@@ -1,4 +1,5 @@
 import { styled } from '@mui/material'
+
 import TypographyText from '../Text/TypographyText'
 import UserAvatar from '../Image/UserAvatar'
 
