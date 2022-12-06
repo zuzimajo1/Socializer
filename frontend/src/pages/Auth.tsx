@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 import { Form, Image, Input, SwitchButton } from '../styles/Auth.styled';
 import { ButtonSubmit, CheckPassword, Header, TypographyText } from '../components';
 import {  FullPaddingContainer, FullWidthCenterVerticalContainer, MainContainer, FullWidthStartVertificalContainer, AutoVerticalContainer } from '../styles/Containers.styled';
