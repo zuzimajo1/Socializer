@@ -1,6 +1,6 @@
-import React from 'react';
-import { ButtonSubmit, Header, TypographyText } from '../components';
 import { styled } from "@mui/material";
+
+import { ButtonSubmit, Header, TypographyText } from '../components';
 import { FullWidthCenterVerticalContainer, MainContainer } from '../styles/Containers.styled';
 
 const NotFound = () => {
