@@ -13,25 +13,26 @@ type Props = {
 const UserAvatar = (props: Props)=> {
   return (
     <ImageContainer onClick={props.click} {...props}>
-    <Image cursor={props.cursor} src={props.src} alt={props.alt}  />
+    <Image width={props.width} height={props.height} cursor={props.cursor} src={props.src} alt={props.alt}  />
     </ImageContainer>
   )
 }
 
 
-const ImageContainer = styled('div')<Props>(({ cursor, width, margin, height })=>({
-  width,
-  height,
+const ImageContainer = styled('div')<Props>(({ cursor, margin })=>({
   margin,
   cursor,
+  width: "auto",
+  height: "auto",
 
 
 }))
 
 
-const Image = styled(Avatar)<{cursor?:string}>(({cursor, theme})=>({
-    width: "100%",
-    height: "100%",
+const Image = styled(Avatar)<{ cursor?: string, width: string, height: string, }>(({ cursor, width, height, theme})=>({
+    width,
+    height,
+
 
   '&:hover': {
     border: cursor && theme.palette.mode === "light" ? "2px solid var(--maintext-light)" : "2px solid var(--maintext-dark)",

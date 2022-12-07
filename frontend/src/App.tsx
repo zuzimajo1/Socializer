@@ -34,7 +34,7 @@ const App = () => {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Profile/>
+        <Home/>
       </ThemeProvider>
     </ColorModeContext.Provider>
     </SnackbarProvider>

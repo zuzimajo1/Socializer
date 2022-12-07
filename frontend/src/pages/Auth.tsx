@@ -35,7 +35,7 @@ const LoginForm = () => {
   const [check, setcheck] = useState<boolean>(false);
   return (
     <AutoVerticalContainer>
-      <Form>
+      <Form >
         <Input size='small' label='Email' name='email' />
         <Input size='small' label='Password' type={check ? 'text' : 'password'} name='password' />
         <CheckPassword Check={setcheck} />
