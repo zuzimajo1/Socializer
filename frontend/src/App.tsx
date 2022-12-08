@@ -4,6 +4,8 @@ import { CssBaseline, PaletteMode } from '@mui/material';
 import "./App.css"
 import { Auth, Home, NotFound, Profile } from './pages';
 import { SnackbarProvider } from 'notistack';
+import { RouterProvider } from 'react-router-dom';
+import { router } from './utils/router';
 export const ColorModeContext = createContext({ toggleThemeMode: () => { } });
 
 const App = () => {
@@ -34,7 +36,7 @@ const App = () => {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Home/>
+          <RouterProvider router={router} />
       </ThemeProvider>
     </ColorModeContext.Provider>
     </SnackbarProvider>
