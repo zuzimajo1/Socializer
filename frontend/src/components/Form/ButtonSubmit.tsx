@@ -14,7 +14,7 @@ type Props = {
 
 const ButtonSubmit = ({ title, variant, padding, Loading, Icon, click }: Props) => {
   return (
-    <ButtonComponent onClick={click} loading={Loading} loadingPosition="start" startIcon={Icon && <Icon />} padding={padding} variant={variant}>{title}</ButtonComponent>
+    <ButtonComponent onClick={click} loading={Loading} loadingPosition={Icon && "start"} startIcon={Icon && <Icon />} padding={padding} variant={variant}>{title}</ButtonComponent>
   )
 }
 
