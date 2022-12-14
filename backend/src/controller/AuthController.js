@@ -1,10 +1,12 @@
-const UserModel = require("../models/UserModel");
-const { validate } = require("../helpers/validation");
 const { body, sanitize } = require("express-validator");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 //helper for response
+const UserModel = require("../models/UserModel");
+const { validate } = require("../helpers/validation");
 const apiResponse = require("../helpers/apiResponse");
-const bcrypt = require("bcrypt");
 const { createToken } = require("../middleware/jwt");
 const Authenticate = require("../middleware/jwt");
 
@@ -82,12 +84,14 @@ exports.register = [
           });
 
           user.save((error, data) => {
-            if (error)
-              return apiResponse.errorResponse(res, "Registration failed");
+            if (error) return apiResponse.errorResponse(res, "Registration failed");
+            
+             const token = createToken(data);
+
             apiResponse.successResponsewithData(
               res,
               "Registered Successfully",
-              data
+              {token}
             );
           });
         } else {
@@ -138,21 +142,13 @@ exports.login = [
             //if the given password is the same with the password in the database
            
             if (same) {
-              let userData = {
-                _id: user._id,
-                firstname: user.firstname,
-                lastname: user.lastname,
-                email: user.email,
-                isAdmin: user.isAdmin,
-              };
-
               //Create Token
               const token = createToken(user);
 
               return apiResponse.successResponsewithData(
                 res,
-                "Login Successfully",
-                { ...userData, token }
+                "Created Token",
+                {token}
               );
             } else {
               return apiResponse.unauthorizedResponse(
@@ -173,6 +169,42 @@ exports.login = [
     }
   },
 ];
+
+/**
+ * Get User Data using given token
+ * 
+ */
+
+  exports.entry = [
+    (req, res) =>{
+      try {
+        //find the User by ID using the req.user._id from jwt
+          UserModel.findById(req.user._id).then(user =>{
+            if(!user) return apiResponse.errorResponse(res, "Account doesn't exist");
+                let userData = {
+                        _id: user._id,
+                        firstname: user.firstname,
+                        lastname: user.lastname,
+                        email: user.email,
+                        isAdmin: user.isAdmin,
+                       };
+                return apiResponse.successResponsewithData(res,"Login Successfully", userData);
+            });
+        
+      } catch (error) {
+        
+      }
+    }
+  ];
+
+
+
+
+
+
+
+
+
 
 /**
  * User Change Password
