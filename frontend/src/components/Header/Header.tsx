@@ -6,6 +6,8 @@ import ThemeToggler from './ThemeToggler';
 import Logo from "../../assets/Logo.png";
 import UserMenu from './UserMenu';
 import ButtonIcon from './ButtonIcon';
+import { useNavigate } from 'react-router-dom';
+
 
 interface Props {
   login : boolean;
@@ -14,8 +16,9 @@ interface Props {
 
 export const Header = ({ login }: Props) => {
   const { enqueueSnackbar } = useSnackbar();
+  const navigate = useNavigate();
   const HandleClick = () => {
-    enqueueSnackbar('I love snacks.', { variant: 'success' });
+    navigate("/")
   }
 
   return (
