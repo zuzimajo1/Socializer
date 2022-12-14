@@ -3,12 +3,17 @@ import { styled, useTheme, Button, Menu, MenuItem, ListItemIcon } from '@mui/mat
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { useAppDispatch } from '../../hooks/rtk.hooks';
 
 import UserAvatar from '../Image/UserAvatar';
+import { authLogout } from '../../features/auth/authSlice';
+import { useNavigate } from 'react-router-dom';
 
 export const UserMenu = () => {
   const [AnchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(AnchorEl);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const HandleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -16,6 +21,17 @@ export const UserMenu = () => {
   const HandleClose = () => {
     setAnchorEl(null);
   }
+
+  const HandleLogout = async ()=>{
+    await dispatch(authLogout());
+    navigate("/login")
+  }
+
+
+
+
+
+
 
   const theme = useTheme();
 
@@ -26,7 +42,7 @@ export const UserMenu = () => {
         <ArrowDropDownIcon fontSize='medium' sx={{ color: theme.palette.mode === 'light' ? 'var(--maintext-light)' : 'var(--maintext-dark)' }} />
       </MenuButton>
       <Menu sx={{ padding: "var(--padding-sm) var(--padding-md)" }} anchorEl={AnchorEl} open={open} onClose={HandleClose}>
-        <MenuItem>
+        <MenuItem onClick={()=> navigate("/profile")}>
           <ListItemIcon>
             <AccountCircleIcon fontSize="small" />
           </ListItemIcon>
@@ -34,7 +50,7 @@ export const UserMenu = () => {
             Profile
           </ListItemIcon>
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={HandleLogout}>
           <ListItemIcon>
             <LogoutIcon fontSize="small" />
           </ListItemIcon>
