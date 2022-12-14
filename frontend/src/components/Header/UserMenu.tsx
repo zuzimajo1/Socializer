@@ -3,11 +3,12 @@ import { styled, useTheme, Button, Menu, MenuItem, ListItemIcon } from '@mui/mat
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { useAppDispatch } from '../../hooks/rtk.hooks';
-
-import UserAvatar from '../Image/UserAvatar';
-import { authLogout } from '../../features/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
+
+import { useAppDispatch } from '../../hooks/rtk.hooks';
+import UserAvatar from '../Image/UserAvatar';
+import { authLogout } from '../../features/asyncThunk';
+
 
 export const UserMenu = () => {
   const [AnchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
