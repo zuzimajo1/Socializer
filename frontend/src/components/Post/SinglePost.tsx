@@ -37,9 +37,11 @@ const SinglePost = (props: PostProps) => {
                         <ButtonIcon fontSize='small' Icon={MoreVertIcon} Click={HandleClick} />
                         <DeleteMenu AnchorEl={AnchorEl} Close={HandleClose} open={open} />
                     </Container>
-                    <Container border="1px solid var(--border-color)" borderRadius="var(--border-radius-sm)" display="flex"  justifyContent="center"  alignItems="center" width="80px"  >
+                    <Container width="100%" display="flex" justifyContent="start">
+                    <Container border="1px solid var(--border-color)" borderRadius="var(--border-radius-sm)" display="flex"  justifyContent="start"  alignItems="center" width="auto" padding="0 var(--padding-xs)"  >
                         <TypographyText fontweigth="400" lightcolor="var(--text-color-light)" darkcolor="var(--text-color-dark)" variant="subtitle2" text={`${moment(createdAt).fromNow(true)}`} />
                         <PublicIcon fontSize='small' />
+                    </Container>
                     </Container>
                     <Container width="100%" margin="var(--padding-md) 0 0 0">
                         <TypographyText fontweigth="400" lightcolor="var(--text-color-light)" darkcolor="var(--text-color-dark)"  variant="subtitle2" text={post} />
