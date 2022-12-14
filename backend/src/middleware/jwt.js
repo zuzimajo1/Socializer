@@ -9,8 +9,8 @@ exports.createToken = (user)=> jwt.sign({ _id: user._id, isAdmin: user.isAdmin},
 
 
 exports.verifyToken = async (req, res, next)=>{
-    if(req.headers.token){
-        const token = req.headers.token.split(" ")[1];
+    if(req.headers.authorization){
+        const token = req.headers.authorization.split(" ")[1];
         jwt.verify(token, process.env.JWT_SEC, (err, decoded)=>{
             if(decoded){
                 UserModel.findById({_id: decoded._id}).then(user =>{
