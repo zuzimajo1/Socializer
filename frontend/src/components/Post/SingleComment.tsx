@@ -5,7 +5,6 @@ import moment from 'moment';
 
 import UserAvatar from '../Image/UserAvatar';
 import { Container } from '../../styles/Containers.styled';
-
 import TypographyText from '../Text/TypographyText';
 import ButtonIcon from '../Header/ButtonIcon';
 import DeleteMenu from '../Header/DeleteMenu';
