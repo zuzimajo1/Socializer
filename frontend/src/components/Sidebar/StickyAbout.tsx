@@ -10,7 +10,7 @@ const StickyAbout = () => {
   return (
     <StickyContainer>
           <Wrapper>
-            <UserAvatar width="50px" height="50px" src={Logo} alt="Logo"/>
+          <UserAvatar width="50px" height="50px" src={Logo} alt="Logo"/>
            <TypographyText lightcolor="var(--maintext-color-light)" darkcolor="var(--maintext-color-dark)" variant="h6" text="Socializer" />
           </Wrapper>
           <Wrapper>
