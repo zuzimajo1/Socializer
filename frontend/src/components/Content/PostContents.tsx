@@ -1,7 +1,6 @@
 import { Card, CardHeader, CardContent, Skeleton } from "@mui/material";
 import SignalWifiConnectedNoInternet4Icon from '@mui/icons-material/SignalWifiConnectedNoInternet4';
 
-import { PostState } from "../../features/slice/postSlice";
 import { useAppSelector } from '../../hooks/rtk.hooks';
 import { Container } from '../../styles/Containers.styled';
 import { PostProps } from '../../utils/types';
@@ -11,11 +10,7 @@ import SkeletonContents from "./SkeletonContents";
 
 
 const PostContents = () => {
-    const post = useAppSelector<PostState>((state) => ({
-        isLoading: state.post.isLoading,
-        post: state.post.post,
-        isSuccess: state.post.isSuccess,
-    }));
+    const post: any = useAppSelector((state) =>  state.post)
 
     if (post.isLoading && !post.isSuccess) {
         return (
