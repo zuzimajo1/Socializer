@@ -2,13 +2,15 @@ import { styled } from '@mui/material'
 
 import TypographyText from '../Text/TypographyText'
 import UserAvatar from '../Image/UserAvatar'
-
+import { useAppSelector } from '../../hooks/rtk.hooks'
 
 const StickyProfile = () => {
+
+  const auth: any  = useAppSelector(state => state?.auth);
   return (
     <StickyContainer>
       <UserAvatar width="60px" height="60px" src="https://img.freepik.com/free-photo/close-up-young-successful-man-smiling-camera-standing-casual-outfit-against-blue-background_1258-66609.jpg?w=2000" alt="User"/>     
-      <TypographyText lightcolor="var(--maintext-color-light)" darkcolor="var(--maintext-color-dark)" variant="subtitle1" text="Zuzim Ajo"/>
+      <TypographyText lightcolor="var(--maintext-color-light)" darkcolor="var(--maintext-color-dark)" variant="subtitle1" text={`${auth?.user?.firstname} ${auth?.user?.lastname}`}/>
     </StickyContainer>
   )
 }
