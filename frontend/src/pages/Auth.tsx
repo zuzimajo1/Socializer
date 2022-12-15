@@ -8,13 +8,13 @@ import { FullPaddingContainer, FullWidthCenterVerticalContainer, MainContainer, 
 import People from "../assets/People.svg";
 import { isEmpty, isError, isLoggedIn, validateEmail } from '../utils/helpers';
 import { useAppDispatch } from '../hooks/rtk.hooks';
-import { APIResponse, IDispatchResponse, ILoginResponse, IUserLogin } from '../utils/types';
-import { authLogin } from '../features/asyncThunk';
+import { APIResponse, IDispatchResponse, ILoginResponse, IUserLogin, IUserRegistration } from '../utils/types';
+import { authLogin, authRegister } from '../features/asyncThunk';
 
 const Auth = () => {
   const login = isLoggedIn();
-  
-  return ( 
+
+  return (
     <MainContainer>
       <Header login={login} />
       <AuthWrapper />
@@ -57,25 +57,28 @@ const LoginForm = () => {
   const HandleLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const { email, password } = data;
-    setloading(true);
+   
     try {
 
       if (isEmpty(email)) return enqueueSnackbar("Field email is required", { variant: "warning" });
       if (isEmpty(password)) return enqueueSnackbar("Field password is required", { variant: "warning" });
       if (validateEmail(email)) return enqueueSnackbar("Email is not valid", { variant: "warning" });
-      if(password.length <= 4) return enqueueSnackbar("Password must be 5 characters or greater", {variant: "warning"})
+      if (password.length <= 4) return enqueueSnackbar("Password must be 5 characters or greater", { variant: "warning" });
+      setloading(true);
 
       const data = {
-        email : email.trim(),
+        email: email.trim(),
         password: password.trim(),
       } as IUserLogin
-
-      await dispatch(authLogin(data));
-      navigate("/")
-      setloading(false);
       
+      await dispatch(authLogin(data));
+      setloading(false);
+      navigate("/")
+
     } catch (error: any) {
-      isError(error);
+      console.log(error);
+      console.log(isError(error));
+      setloading(false);
     }
   }
 
@@ -93,16 +96,61 @@ const LoginForm = () => {
 
 const RegisterForm = () => {
   const [check, setcheck] = useState<boolean>(false);
+  const [data, setdata] = useState<IUserRegistration>({} as IUserRegistration);
+  const [loading, setloading] = useState<boolean>(false);
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { enqueueSnackbar } = useSnackbar();
+  const RegisterInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    setdata({ ...data, [e.target.name]: e.target.value });
+  }
+
+  const HandleRegister = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+  
+    const { firstname, lastname, email, password, confirmpassword } = data;
+
+    try {
+      if (isEmpty(firstname)) return enqueueSnackbar("Field firstname is required", { variant: "warning" });
+      if (isEmpty(lastname)) return enqueueSnackbar("Field lastname is required", { variant: "warning" });
+      if (isEmpty(email)) return enqueueSnackbar("Field email is required", { variant: "warning" });
+      if (validateEmail(email)) return enqueueSnackbar("Email is not valid", { variant: "warning" });
+      if (isEmpty(password)) return enqueueSnackbar("Field password is required", { variant: "warning" });
+      if (password.length <= 4) return enqueueSnackbar("Password must be 5 characters or greater", { variant: "warning" })
+      if (isEmpty(confirmpassword)) return enqueueSnackbar("Field confirm password is required", { variant: "warning" });
+      if (password !== confirmpassword) return enqueueSnackbar("Password didn't match", { variant: "warning" })
+
+      setloading(true);
+
+      const data = {
+        firstname: firstname.trim(),
+        lastname: lastname.trim(),
+        email: email.trim(),
+        password: password.trim(),
+        confirmpassword: confirmpassword.trim(),
+      } as IUserRegistration
+
+      await dispatch(authRegister(data));
+      setloading(false);
+      navigate("/")
+    } catch (error: any) {
+      console.log(isError(error));
+      setloading(false);
+    }
+
+  }
+
   return (
     <AutoVerticalContainer>
       <Form>
-        <Input size='small' label='Firstname' name='firstname' />
-        <Input size='small' label='Lastname' name='lastname' />
-        <Input size='small' label='Email' name='email' />
-        <Input size='small' label='Password' type={check ? 'text' : 'password'} name='password' />
-        <Input size='small' label='Confirm Password' type={check ? 'text' : 'password'} name='confirmpassword' />
+        <Input size='small' label='Firstname' name='firstname' onChange={RegisterInput} />
+        <Input size='small' label='Lastname' name='lastname' onChange={RegisterInput} />
+        <Input size='small' label='Email' name='email' onChange={RegisterInput} />
+        <Input size='small' label='Password' type={check ? 'text' : 'password'} name='password' onChange={RegisterInput} />
+        <Input size='small' label='Confirm Password' type={check ? 'text' : 'password'} name='confirmpassword' onChange={RegisterInput} />
         <CheckPassword Check={setcheck} />
-        <ButtonSubmit variant="contained" title="Register" />
+        <ButtonSubmit Loading={loading} variant="contained" title="Register" click={HandleRegister} />
       </Form>
     </AutoVerticalContainer>
   )
