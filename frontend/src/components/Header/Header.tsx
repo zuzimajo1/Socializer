@@ -3,10 +3,13 @@ import { useSnackbar  } from "notistack";
 import HomeIcon from '@mui/icons-material/Home';
 import { useNavigate } from 'react-router-dom';
 
+import { useAppDispatch } from '../../hooks/rtk.hooks'; 
 import ThemeToggler from './ThemeToggler';
 import Logo from "../../assets/Logo.png";
 import UserMenu from './UserMenu';
 import ButtonIcon from './ButtonIcon';
+import { fetchAllPost } from '../../features/asyncThunk';
+
 
 
 interface Props {
@@ -17,8 +20,10 @@ interface Props {
 export const Header = ({ login }: Props) => {
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const HandleClick = () => {
     navigate("/")
+    dispatch(fetchAllPost());
   }
 
   return (
