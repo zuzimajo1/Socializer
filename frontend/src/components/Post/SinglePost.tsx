@@ -9,7 +9,6 @@ import ButtonSubmit from '../Form/ButtonSubmit';
 import ButtonIcon from '../Header/ButtonIcon';
 import DeleteMenu from '../Header/DeleteMenu';
 import UserAvatar from '../Image/UserAvatar';
-// import { PostProps, Comments } from '../../utils/config';
 import TypographyText from '../Text/TypographyText';
 import { Container } from '../../styles/Containers.styled';
 import { Comments, PostProps } from '../../utils/types';
