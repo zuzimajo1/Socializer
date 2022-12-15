@@ -7,9 +7,9 @@ import { ButtonIcon, ButtonSubmit, Header, PostContent, SinglePost, StickyAbout,
 import { HomeDivision, HomeDivision2, HomeDivision3, ModalButton, ModalContainer, ModalWrapper, Post, PostField } from '../styles/Home.styled'
 import { Container, FullWidthCenterPaddingContainer, MainContainer } from '../styles/Containers.styled';
 import { PostProps } from '../utils/types';
-import { useAppDispatch } from '../hooks/rtk.hooks';
+import { useAppDispatch, useAppSelector } from '../hooks/rtk.hooks';
 import { isLoggedIn } from '../utils/helpers';
-import { fetchAllPost } from '../features/asyncThunk';
+import { authEntry, fetchAllPost, refreshAll } from '../features/asyncThunk';
 
 
 const Home = () => {
@@ -17,11 +17,12 @@ const Home = () => {
   const HandleOpen = () => setOpen(true);
   const HandleClose = () => setOpen(false);
   const dispatch = useAppDispatch();
+  const auth: any = useAppSelector(state => state?.auth);
  
   const login = isLoggedIn();
 
    useEffect(()=>{
-   dispatch(fetchAllPost());
+     dispatch(refreshAll());
    }, [dispatch])
 
 
@@ -35,7 +36,7 @@ const Home = () => {
         <HomeDivision2>
           <Post>
             <UserAvatar margin="0 0.5rem 0" width="60px" height="60px" src="https://img.freepik.com/free-photo/close-up-young-successful-man-smiling-camera-standing-casual-outfit-against-blue-background_1258-66609.jpg?w=2000" alt="User" />
-            <ModalButton size='medium' variant="text" onClick={HandleOpen} >What's on your mind? Zuzim</ModalButton>
+            <ModalButton size='medium' variant="text" onClick={HandleOpen} >{`What's on your mind? ${auth?.user?.firstname}`}</ModalButton>
             <Modal open={open} onClose={HandleClose}>
               <ModalContainer>
                 <ModalWrapper>
@@ -46,7 +47,7 @@ const Home = () => {
                   <Container display="flex" width="100%">
                     <UserAvatar width="50px" height="50px" src="https://img.freepik.com/free-photo/close-up-young-successful-man-smiling-camera-standing-casual-outfit-against-blue-background_1258-66609.jpg?w=2000" alt="User" />
                     <Container width="100%" display="flex" vertical margin="0 0 0 10px"  >
-                      <TypographyText variant="subtitle1" text="Zuzim Ajo" lightcolor="var(--text-color-light)" darkcolor="var(--text-color-dark)" />
+                      <TypographyText variant="subtitle1" text={`${auth?.user?.firstname} ${auth?.user?.lastname}`} lightcolor="var(--text-color-light)" darkcolor="var(--text-color-dark)" />
                       <Container border="1px solid var(--border-color)" borderRadius='var(--border-radius-sm)' display="flex" justifyContent="center" alignItems="center" width="80px"  >
                         <PublicIcon fontSize='small' />
                         <TypographyText variant="subtitle2" text="Public" lightcolor="var(--text-color-light)" darkcolor="var(--text-color-dark)"  />
