@@ -1,21 +1,33 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Modal } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
 import PublicIcon from '@mui/icons-material/Public';
 
-import { ButtonIcon, ButtonSubmit, Header, SinglePost, StickyAbout, StickyProfile, TypographyText, UserAvatar } from '../components';
+import { ButtonIcon, ButtonSubmit, Header, PostContent, SinglePost, StickyAbout, StickyProfile, TypographyText, UserAvatar } from '../components';
 import { HomeDivision, HomeDivision2, HomeDivision3, ModalButton, ModalContainer, ModalWrapper, Post, PostField } from '../styles/Home.styled'
 import { Container, FullWidthCenterPaddingContainer, MainContainer } from '../styles/Containers.styled';
-import { Posts, PostProps } from '../utils/config';
+import { PostProps } from '../utils/types';
+import { useAppDispatch } from '../hooks/rtk.hooks';
+import { isLoggedIn } from '../utils/helpers';
+import { fetchAllPost } from '../features/asyncThunk';
+
 
 const Home = () => {
   const [open, setOpen] = useState<boolean>(false);
   const HandleOpen = () => setOpen(true);
   const HandleClose = () => setOpen(false);
+  const dispatch = useAppDispatch();
+ 
+  const login = isLoggedIn();
+
+   useEffect(()=>{
+   dispatch(fetchAllPost());
+   }, [dispatch])
+
 
   return (
     <MainContainer>
-      <Header login />
+      <Header login={login} />
       <FullWidthCenterPaddingContainer>
         <HomeDivision>
           <StickyProfile />
@@ -49,11 +61,7 @@ const Home = () => {
               </ModalContainer>
             </Modal>
           </Post>
-          <Container width="100%" margin='var(--padding-md) 0 0 0' >
-            {Posts.map((props: PostProps) => (
-              <SinglePost key={props._id} {...props} />
-              ))}
-           </Container>
+          <PostContent />
         </HomeDivision2>
         <HomeDivision3>
           <StickyAbout />
