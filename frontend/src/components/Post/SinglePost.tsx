@@ -35,8 +35,8 @@ const SinglePost = (props: PostProps) => {
         e.preventDefault();
         setAnchorEl(null)
         try {
-            const res: IDispatchResponse =   await dispatch(userDeletePost(_id))
-            res.payload && enqueueSnackbar("Post was deleted!", { variant: "success" });
+            const res: IDispatchResponse =   await dispatch(userDeletePost(_id));
+            res.payload ? enqueueSnackbar("Post was deleted!", { variant: "success" }) : enqueueSnackbar("Not the post owner!", { variant: "error" });
         } catch (error: any) {
             isError(error);
         }
