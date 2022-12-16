@@ -71,13 +71,13 @@ const LoginForm = () => {
         password: password.trim(),
       } as IUserLogin
       
-      await dispatch(authLogin(data));
+      const res: IDispatchResponse = await dispatch(authLogin(data));
       setloading(false);
+      res.payload && enqueueSnackbar("Login Successfully!", { variant: "success" });
       navigate("/")
 
     } catch (error: any) {
-      console.log(error);
-      console.log(isError(error));
+      isError(error);
       setloading(false);
     }
   }
@@ -131,9 +131,10 @@ const RegisterForm = () => {
         confirmpassword: confirmpassword.trim(),
       } as IUserRegistration
 
-      await dispatch(authRegister(data));
+      const res: IDispatchResponse = await dispatch(authRegister(data));
       setloading(false);
-      navigate("/")
+      res.payload && enqueueSnackbar("Registered Successfully!", { variant: "success" });
+      navigate("/");
     } catch (error: any) {
       console.log(isError(error));
       setloading(false);
