@@ -1,9 +1,9 @@
 import axios, { AxiosRequestConfig } from "axios";
-import { getCookie, setCookie } from "./helpers";
+import { redirect } from "react-router-dom";
+import { deleteCookie, getCookie, setCookie } from "./helpers";
+import { IUserLogin, APIResponse, ILoginResponse, IUserRegistration, IUserPost } from "./types";
 
-import { UserLoginProps, UserRegisterProps, APIResponse, LoginReponseProps } from "./types";
-
-export const BaseAPIUrl = process.env.REACT_APP_API;
+export const BaseAPIUrl = import.meta.env.VITE_REACT_APP_URL_ENDPOINT;
 
 
 /**
@@ -24,34 +24,59 @@ const apiRequest = async <T>(path: string, config: AxiosRequestConfig = {}): Pro
     //If there is token, attached it unto the request headers as bearer
     if(token){
         if(!request.headers) request.headers = {};
-        request.headers["Authorization"] = `Bearer ${token}`;
+        request.headers["authorization"] = `Bearer ${token}`;
     }
 
     const res = await axios(request);
     return res.data as T;
 }
 
-
 /**
  * Login API Request, If success, create a cookie with 5 hours duration
  * @param {string} email - the email of the user
  * @param {password} password - the password of the user
- * @returns { LoginReponseProps }
+ * @returns { LoginResponseProps } - the return data from the API
  */
 
-export const login = async (email: string, password: string): Promise<LoginReponseProps> => {
-    const res = await apiRequest<LoginReponseProps>(`/auth/login`, {
-        method: "post",
-        headers : {
-            "Content-Type": "application/json",
-        },
-        data: { email, password }
-    })
+export const login = async (loginData: IUserLogin): Promise<ILoginResponse> => {
+  const { email, password } = loginData;
+  const res = await apiRequest<ILoginResponse>(`/auth/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: { email, password },
+  });
 
-    if(res.status === 1){
-        setCookie({cookieName: "accessToken", value: res.data.token})
+    if (res.status === 1) {
+      setCookie({ cookieName: "accessToken", value: res.data?.token });
+     
     }
-    return res;
+  return res;
+};
+
+
+export const entry = async(): Promise<APIResponse<{}>> => {
+  const res = await apiRequest<APIResponse<{}>>(`/auth/entry`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  return res;
+}
+
+
+
+/**
+ * Logout User
+ * 
+ * logging out by deleting the cookie named accessToken
+ */
+
+export const logout = () =>{
+  deleteCookie({cookieName: "accessToken", path:"/" , domain: "/"});
 }
 
 
@@ -60,27 +85,33 @@ export const login = async (email: string, password: string): Promise<LoginRepon
  * @param {string} firstname - the first name of the user
  * @param {string} lastname - the last name of the user
  * @param {string} email - the email of the user
- * @param {password} password - the password of the user
- * 
- * @returns {APIResponse<{}>} - a promise of the returned data from the API
+ * @param {string} password - the password of the user
+ * @param {string} confirmpassword - the confirmpassword of the user
+ *  
+ * @returns {ILoginResponse} - a promise of the returned data from the API
  * 
  */
 
-export const register = async ({firstname, lastname, email, password}: UserRegisterProps): Promise<APIResponse<{}>>=> {
+export const register = async (data: IUserRegistration): Promise<ILoginResponse>=> {
     const registerUser = {
-        firstname,
-        lastname,
-        email,
-        password,
-    };
-    const res = await apiRequest<APIResponse<{}>>(`auth/register`, {
-      method: "post",
+        firstname: data.firstname,
+        lastname: data.lastname,
+        email: data.email,
+        password: data.password, 
+        confirmpassword: data.confirmpassword,     
+    } as IUserRegistration
+   
+
+    const res = await apiRequest<ILoginResponse>(`/auth/register`, {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      data: registerUser
-
+      data: registerUser,
     });
+    if(res.status === 1){
+      setCookie({ cookieName: "accessToken", value: res.data?.token });
+    }
 
     return res;
 }
@@ -92,9 +123,9 @@ export const register = async ({firstname, lastname, email, password}: UserRegis
  * @returns {APIResponse<{}>} - a promise of the returned data from the API
  */
 
-export const fetchAllPost = async (): Promise<APIResponse<{}>> => {
-    const res = await apiRequest<APIResponse<{}>>(`allpost`, {
-        method: "get",
+export const getPosts = async (): Promise<APIResponse<{}>> => {
+    const res = await apiRequest<APIResponse<{}>>(`/allpost`, {
+        method: "GET",
         headers: {
             "Content-Type": "appication/json",
         }
@@ -102,6 +133,42 @@ export const fetchAllPost = async (): Promise<APIResponse<{}>> => {
     return res;
 }
 
+/**
+ * Posting post from the user
+ * 
+ *  @returns {APIResponse<{}>} - a promise of the returned data from the API
+ */
+
+export const postPost = async (postdata: IUserPost): Promise<APIResponse<{}>> => {
+  const res = await apiRequest<APIResponse<{}>>("/post", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: postdata,
+  });
+
+  return res;
+};
+
+/**
+ * Deleting post by the user
+ * 
+ * @returns {APIResponse<{}>} - a promise of the returned data from the API
+ */
+
+
+export const deletePost = async (postID: string): Promise<APIResponse<{}>> => {
+  const res = await apiRequest<APIResponse<{}>>(`/post?postID=${postID}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+
+  })
+
+  return res;
+}
 
 
 
