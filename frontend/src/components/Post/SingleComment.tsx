@@ -30,7 +30,7 @@ const SingleComment = (props: Comments) => {
                         <CommentCreatedAt >•{moment(createdAt).fromNow(true)}</CommentCreatedAt>
                     </Container>
                     <ButtonIcon fontSize='small' Icon={MoreVertIcon} Click={HandleClick} />
-                    <DeleteMenu Close={HandleClose} AnchorEl={AnchorEl} open={open} />
+                    <DeleteMenu Click={(event: React.SyntheticEvent)=> console.log("Delete")}  Close={HandleClose} AnchorEl={AnchorEl} open={open} />
                 </Container>
                 <TypographyText fontweigth="400" lightcolor="var(--text-color-light)" darkcolor='var(--text-color-dark)' variant="subtitle2" text={comments} />
             </Container>
