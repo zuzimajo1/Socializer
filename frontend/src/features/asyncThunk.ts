@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { entry, getPosts, login, logout, register } from "../utils/apiCalls";
+import { deletePost, entry, getPosts, login, logout, postPost, register } from "../utils/apiCalls";
 import { isError } from "../utils/helpers";
-import { APIResponse, ILoginResponse, IUserLogin, IUserRegistration } from "../utils/types";
+import { APIResponse, ILoginResponse, IUserLogin, IUserRegistration, IUserPost } from "../utils/types";
 
 
 /**
@@ -61,6 +61,12 @@ export const authRegister = createAsyncThunk(
     }
   }
 )
+
+/**
+ * Async Thunk for Refreshing by fetching again the data of the user and all the post
+ * 
+ * @returns {void} - Nothing returns in this function
+ */
 
 
 export const refreshAll = createAsyncThunk(
@@ -134,3 +140,42 @@ export const fetchAllPost = createAsyncThunk(
         }
     }
 )
+
+
+/**
+ * Async Thunk for posting a post
+ * 
+ * @returns {APIResponse<{}>} - return data from the API 
+ */
+
+export const userPost = createAsyncThunk(
+  "/posts/post",
+  async (data: IUserPost, thunkAPI) => {
+    try {
+      const res: APIResponse<{}> = await postPost(data);
+        if (res.status === 0) throw new Error(res.message);
+        return res;
+    } catch (error) {
+        const message = isError(error);
+        return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+
+export const userDeletePost = createAsyncThunk(
+  "/posts/postDelete",
+  async (postID: string, thunkAPI)=>{
+    try {
+      const res: APIResponse<{}> = await deletePost(postID);
+        if (res.status === 0) throw new Error(res.message);
+        return res;
+    } catch (error) {
+        const message = isError(error);
+        return thunkAPI.rejectWithValue(message);
+    }
+  }
+)
+
+
+
