@@ -3,6 +3,7 @@ import { styled, TextField } from "@mui/material";
 import PublicIcon from '@mui/icons-material/Public';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import moment from "moment";
+import { useSnackbar } from 'notistack';
 
 import SingleComment from './SingleComment';
 import ButtonSubmit from '../Form/ButtonSubmit';
@@ -11,12 +12,17 @@ import DeleteMenu from '../Header/DeleteMenu';
 import UserAvatar from '../Image/UserAvatar';
 import TypographyText from '../Text/TypographyText';
 import { Container } from '../../styles/Containers.styled';
-import { Comments, PostProps } from '../../utils/types';
+import { Comments, IDispatchResponse, PostProps } from '../../utils/types';
+import { useAppDispatch } from '../../hooks/rtk.hooks';
+import { userDeletePost } from '../../features/asyncThunk';
+import { isError } from '../../utils/helpers';
+
 
 const SinglePost = (props: PostProps) => {
     const { _id, userOwner, post, comments, createdAt} = props;
     const [comment, setcomment] = useState<string | null>();
-
+    const dispatch = useAppDispatch();
+    const { enqueueSnackbar } = useSnackbar();
     const HandleComment = (e: React.ChangeEvent<HTMLTextAreaElement>): void => setcomment(e.currentTarget.value);
 
     const [AnchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -25,6 +31,17 @@ const SinglePost = (props: PostProps) => {
     const HandleClick = (event: React.MouseEvent<HTMLButtonElement>) => setAnchorEl(event.currentTarget);
     const HandleClose = () => setAnchorEl(null);
 
+    const HandlePostDelete = async (e: React.SyntheticEvent) =>{
+        e.preventDefault();
+        setAnchorEl(null)
+        try {
+            const res: IDispatchResponse =   await dispatch(userDeletePost(_id))
+            res.payload && enqueueSnackbar("Post was deleted!", { variant: "success" });
+        } catch (error: any) {
+            isError(error);
+        }
+    }
+
 
     return (
         <SinglePostContainer>
@@ -32,9 +49,9 @@ const SinglePost = (props: PostProps) => {
                 <UserAvatar width="50px" height="50px" src="https://img.freepik.com/free-photo/close-up-young-successful-man-smiling-camera-standing-casual-outfit-against-blue-background_1258-66609.jpg?w=2000" alt="User" />
                 <Container width="100%" height="100%" display="flex" vertical margin="0 0 0 10px"  >
                     <Container width="100%" display="flex" justifyContent="space-between" alignItems="start">
-                        <TypographyText textTransform="capitalize" fontweigth="600" lightcolor="var(--maintext-color-light)" darkcolor="var(--maintext-color-dark)" variant="subtitle1" text={`${userOwner.firstname} ${userOwner.lastname}`} />
+                        <TypographyText textTransform="capitalize" fontweigth="600" lightcolor="var(--maintext-color-light)" darkcolor="var(--maintext-color-dark)" variant="subtitle1" text={`${userOwner?.firstname} ${userOwner?.lastname}`} />
                         <ButtonIcon fontSize='small' Icon={MoreVertIcon} Click={HandleClick} />
-                        <DeleteMenu AnchorEl={AnchorEl} Close={HandleClose} open={open} />
+                        <DeleteMenu Click={HandlePostDelete} AnchorEl={AnchorEl} Close={HandleClose} open={open} />
                     </Container>
                     <Container width="100%" display="flex" justifyContent="start">
                     <Container border="1px solid var(--border-color)" borderRadius="var(--border-radius-sm)" display="flex"  justifyContent="start"  alignItems="center" width="auto" padding="0 var(--padding-xs)"  >
@@ -49,7 +66,7 @@ const SinglePost = (props: PostProps) => {
             </Container>
             <MarginContainer2 >
                 {comments?.map((props: Comments) => (
-                    <Container width="100%" margin="var(--padding-md) 0 0 0"   key={props._id}>
+                    <Container width="100%" margin="var(--padding-md) 0 0 0" key={props._id}>
                         <SingleComment  {...props} />
                     </Container>
                 ))}
