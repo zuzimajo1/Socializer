@@ -6,7 +6,7 @@ import {
 
 import { isLoggedIn } from "../../utils/helpers";
 import { APIResponse, ILoginResponse, IUser } from "../../utils/types";
-import { authEntry, authLogin, authLogout, authRegister } from "../asyncThunk";
+import { authEntry, authLogin, authLogout, authRegister, userChangePassword } from "../asyncThunk";
 
 const status = isLoggedIn();
 
@@ -46,15 +46,15 @@ const authSlice: any = createSlice({
         state.loggedIn = false;
         state.isLoading = false;
       })
-      .addCase(authRegister.pending, (state: IAuthState)=>{
+      .addCase(authRegister.pending, (state: IAuthState) => {
         state.loggedIn = false;
         state.isLoading = true;
       })
-      .addCase(authRegister.fulfilled, (state: IAuthState)=>{
+      .addCase(authRegister.fulfilled, (state: IAuthState) => {
         state.loggedIn = true;
         state.isLoading = false;
       })
-      .addCase(authRegister.rejected, (state: IAuthState)=>{
+      .addCase(authRegister.rejected, (state: IAuthState) => {
         state.loggedIn = false;
         state.isLoading = false;
       })
@@ -80,7 +80,16 @@ const authSlice: any = createSlice({
       })
       .addCase(authLogout.rejected, (state: IAuthState) => {
         state.isLoading = false;
-      });
+      })
+      .addCase(userChangePassword.pending, (state: IAuthState)=>{
+        state.isLoading = true;
+      })
+      .addCase(userChangePassword.fulfilled, (state: IAuthState)=>{
+        state.isLoading = false;
+      })
+      .addCase(userChangePassword.rejected, (state: IAuthState)=>{
+        state.isLoading = false;
+      })
   },
 });
 
