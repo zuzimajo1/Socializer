@@ -1,6 +1,6 @@
 import { ActionReducerMapBuilder, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { APIResponse, PostProps } from "../../utils/types";
-import { fetchAllPost, userDeletePost, userPost } from "../asyncThunk";
+import { fetchAllPost, userDeleteComment, userDeletePost, userPost, userPostComment } from "../asyncThunk";
 
 
 export interface PostState{
@@ -52,7 +52,8 @@ const postSlice: any = createSlice({
             state.isSuccess = true;
           })
           .addCase(
-            userPost.fulfilled, (state: PostState, action: PayloadAction<APIResponse<{}>>) => {
+            userPost.fulfilled,
+            (state: PostState, action: PayloadAction<APIResponse<{}>>) => {
               const data = action.payload.data as PostProps;
               state.post.unshift(data);
               state.isSuccess = true;
@@ -65,15 +66,45 @@ const postSlice: any = createSlice({
             state.isLoading = false;
             state.isSuccess = true;
           })
-          .addCase(userDeletePost.fulfilled, (state: PostState, action: PayloadAction<APIResponse<{}>>)=>{
-            const data = action.payload.data as PostProps;
-            state.post = state.post.filter((items)=> items._id !== data._id);
+          .addCase(
+            userDeletePost.fulfilled,
+            (state: PostState, action: PayloadAction<APIResponse<{}>>) => {
+              const data = action.payload.data as PostProps;
+              state.post = state.post.filter((items) => items._id !== data._id);
+              state.isSuccess = true;
+            }
+          )
+          .addCase(userDeletePost.rejected, (state: PostState) => {
+            state.isLoading = false;
             state.isSuccess = true;
           })
-          .addCase(userDeletePost.rejected, (state: PostState)=>{
-              state.isLoading = false;
-              state.isSuccess = true;
+          .addCase(userPostComment.pending, (state: PostState) => {
+            state.isLoading = false;
+            state.isSuccess = true;
           })
+          .addCase(userPostComment.fulfilled, (state: PostState, action: PayloadAction<APIResponse<{}>>)=>{
+            const data = action.payload.data as PostProps;
+            state.post[state.post.findIndex((items)=> items._id === data._id)] = data;
+            state.isSuccess = true;
+          })
+          .addCase(userPostComment.rejected, (state: PostState)=>{
+            state.isLoading = false;
+            state.isSuccess = true;
+          })
+          .addCase(userDeleteComment.pending, (state: PostState)=>{
+            state.isLoading = false;
+            state.isSuccess = true;
+          })
+          .addCase(userDeleteComment.fulfilled, (state: PostState, action: PayloadAction<APIResponse<{}>>)=>{
+            const data = action.payload.data as PostProps;
+            state.post[state.post.findIndex((items)=> items._id === data._id)] = data;
+            state.isSuccess = true;
+          })
+          .addCase(userDeleteComment.rejected, (state: PostState)=>{
+            state.isLoading = false;
+            state.isSuccess = true;
+          })
+
         
     }
 
