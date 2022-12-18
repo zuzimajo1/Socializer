@@ -1,16 +1,34 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { deletePost, entry, getPosts, login, logout, postPost, register } from "../utils/apiCalls";
+import {
+  commentDelete,
+  commentPost,
+  deletePost,
+  entry,
+  getPosts,
+  login,
+  logout,
+  postPost,
+  register,
+  changePassword,
+} from "../utils/apiCalls";
 import { isError } from "../utils/helpers";
-import { APIResponse, ILoginResponse, IUserLogin, IUserRegistration, IUserPost } from "../utils/types";
-
+import {
+  APIResponse,
+  ILoginResponse,
+  IUserLogin,
+  IUserRegistration,
+  IUserPost,
+  ICommentPost,
+  ICommentDelete,
+  IChangePassword,
+} from "../utils/types";
 
 /**
  * Async Thunk for auth Login
  * @param {object} - object containing email and password of the user
- * 
+ *
  * @returns {ILoginResponse} - login response containing the data from the API
  */
-
 
 export const authLogin = createAsyncThunk(
   "/auth/login",
@@ -35,13 +53,13 @@ export const authLogin = createAsyncThunk(
  * Async Thunk for Register
  *
  * @param {object} - the object container the firstname, lastname, email, and password of the user
- * 
+ *
  * @returns {ILoginResponse} - login response containing the data from the API
  */
 
 export const authRegister = createAsyncThunk(
   "/auth/register",
-  async (data: IUserRegistration, thunkAPI )=>{
+  async (data: IUserRegistration, thunkAPI) => {
     try {
       const registerData = {
         firstname: data.firstname,
@@ -52,100 +70,88 @@ export const authRegister = createAsyncThunk(
       } as IUserRegistration;
 
       const res: ILoginResponse = await register(registerData);
-        thunkAPI.dispatch(authEntry());
-        if (res.status === 0) throw new Error(res.message);
-        return res;
-    } catch (error) {
-         const message = isError(error);
-         return thunkAPI.rejectWithValue(message);
-    }
-  }
-)
-
-/**
- * Async Thunk for Refreshing by fetching again the data of the user and all the post
- * 
- * @returns {void} - Nothing returns in this function
- */
-
-
-export const refreshAll = createAsyncThunk(
-  "/refresh",
-   (_, thunkAPI)=>{
-    try {
       thunkAPI.dispatch(authEntry());
-      thunkAPI.dispatch(fetchAllPost());
-
+      if (res.status === 0) throw new Error(res.message);
+      return res;
     } catch (error) {
-        const message = isError(error);
-        return thunkAPI.rejectWithValue(message);
-    }
-  }
-)
-
-
-
-/**
- * Async Thunk for Logout
- * 
- */
-export const authLogout = createAsyncThunk(
-  "/auth/logout",
-  async(_, thunkAPI)=>{
-    try{
-       await logout();
-    }catch(error: any){
-        const message = isError(error);
+      const message = isError(error);
       return thunkAPI.rejectWithValue(message);
     }
   }
-)
+);
 
+/**
+ * Async Thunk for Refreshing by fetching again the data of the user and all the post
+ *
+ * @returns {void} - Nothing returns in this function
+ */
+
+export const refreshAll = createAsyncThunk("/refresh", (_, thunkAPI) => {
+  try {
+    thunkAPI.dispatch(authEntry());
+    thunkAPI.dispatch(fetchAllPost());
+  } catch (error) {
+    const message = isError(error);
+    return thunkAPI.rejectWithValue(message);
+  }
+});
+
+/**
+ * Async Thunk for Logout
+ *
+ */
+export const authLogout = createAsyncThunk(
+  "/auth/logout",
+  async (_, thunkAPI) => {
+    try {
+      await logout();
+    } catch (error: any) {
+      const message = isError(error);
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 
 /**
  * Async Thunk for retrieving the data using the jwt
- * 
+ *
  * @returns {APIResponse<{}>} - return data from the API
  */
 export const authEntry = createAsyncThunk(
-    "/auth/entry",
-    async (_, thunkAPI) =>{
-        try {
-            const res: APIResponse<{}> = await entry();
-             if (res.status === 0) throw new Error(res.message);
-            return res;
-        } catch (error: any) {
-            const message = isError(error);
-            return thunkAPI.rejectWithValue(message);
-        }
+  "/auth/entry",
+  async (_, thunkAPI) => {
+    try {
+      const res: APIResponse<{}> = await entry();
+      if (res.status === 0) throw new Error(res.message);
+      return res;
+    } catch (error: any) {
+      const message = isError(error);
+      return thunkAPI.rejectWithValue(message);
     }
-)
+  }
+);
 
 /**
  * Async Thunk for retrieving all post from the API
- * 
- * @returns {APIResponse<{}>} - return data from the API 
+ *
+ * @returns {APIResponse<{}>} - return data from the API
  */
 
-export const fetchAllPost = createAsyncThunk(
-    "/posts",
-    async (_, thunkAPI) =>{
-        try {
-            const res: APIResponse<{}> = await getPosts();
-            if(res.status === 0) throw new Error(res.message);
-            return res;
-        } catch (error: any) {
-            const message = isError(error);
-            return thunkAPI.rejectWithValue(message);
-        }
-    }
-)
-
+export const fetchAllPost = createAsyncThunk("/posts", async (_, thunkAPI) => {
+  try {
+    const res: APIResponse<{}> = await getPosts();
+    if (res.status === 0) throw new Error(res.message);
+    return res;
+  } catch (error: any) {
+    const message = isError(error);
+    return thunkAPI.rejectWithValue(message);
+  }
+});
 
 /**
  * Async Thunk for posting a post
- * 
- * @returns {APIResponse<{}>} - return data from the API 
+ *
+ * @returns {APIResponse<{}>} - return data from the API
  */
 
 export const userPost = createAsyncThunk(
@@ -153,29 +159,93 @@ export const userPost = createAsyncThunk(
   async (data: IUserPost, thunkAPI) => {
     try {
       const res: APIResponse<{}> = await postPost(data);
-        if (res.status === 0) throw new Error(res.message);
-        return res;
+      if (res.status === 0) throw new Error(res.message);
+      return res;
     } catch (error) {
-        const message = isError(error);
-        return thunkAPI.rejectWithValue(message);
+      const message = isError(error);
+      return thunkAPI.rejectWithValue(message);
     }
   }
 );
 
+/**
+ * Async Thunk for deleting own post
+ *
+ * @returns {APIResponse<{}>} - return data from the API
+ */
 
 export const userDeletePost = createAsyncThunk(
   "/posts/postDelete",
-  async (postID: string, thunkAPI)=>{
+  async (postID: string, thunkAPI) => {
     try {
       const res: APIResponse<{}> = await deletePost(postID);
-        if (res.status === 0) throw new Error(res.message);
-        return res;
+      if (res.status === 0) throw new Error(res.message);
+      return res;
     } catch (error) {
-        const message = isError(error);
-        return thunkAPI.rejectWithValue(message);
+      const message = isError(error);
+      return thunkAPI.rejectWithValue(message);
     }
   }
-)
+);
 
+/**
+ * Async Thunk for posting comment to the post
+ *
+ * @returns {APIResponse<{}>} - return data from the API
+ *
+ */
 
+export const userPostComment = createAsyncThunk(
+  "/posts/comment",
+  async (data: ICommentPost, thunkAPI) => {
+    try {
+      const res: APIResponse<{}> = await commentPost(data);
+      if (res.status === 0) throw new Error(res.message);
+      return res;
+    } catch (error) {
+      const message = isError(error);
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 
+/**
+ * Async Thunk for deleting comment from the post
+ * The ones who can delete a comment are - Post Owner, Comment Owner, Admin
+ *
+ * @returns {APIResponse<{}>} - return data from the API
+ */
+
+export const userDeleteComment = createAsyncThunk(
+  "/posts/deletecomment",
+  async (data: ICommentDelete, thunkAPI) => {
+    try {
+      const res: APIResponse<{}> = await commentDelete(data);
+      if (res.status === 0) throw new Error(res.message);
+      return res;
+    } catch (error) {
+      const message = isError(error);
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+/**
+ * Async Thunk for changing the password
+ *
+ * @returns {APIResponse<{}>} - return data from the API
+ */
+
+export const userChangePassword = createAsyncThunk(
+  "auth/changepassword",
+  async (data: IChangePassword, thunkAPI) => {
+    try {
+      const res: APIResponse<{}> = await changePassword(data);
+      if (res.status === 0) throw new Error(res.message);
+      return res;
+    } catch (error) {
+      const message = isError(error);
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
