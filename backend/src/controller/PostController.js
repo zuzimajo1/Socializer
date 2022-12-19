@@ -1,17 +1,15 @@
 const PostModel = require("../models/PostModel");
-const { validate } = require("../helpers/validation");
 const { body, sanitize } = require("express-validator");
 var mongoose = require("mongoose");
 //helper for response
+const { validate } = require("../helpers/validation");
 const apiResponse = require("../helpers/apiResponse");
 const Authenticate = require("../middleware/jwt");
 
 /**
  * Post Creation
  *
- * @param {ObjectId} ownerID
- * @param {string} post
- * @param {ObjectId} commentsID
+ * @param {string} post - the request body of the post
  *
  * @returns {Object}
  *
@@ -40,10 +38,11 @@ exports.createPost = [
               select: "firstname lastname createdAt", //get only the properties
             })
             .then((data) => {
+              const datas = data[0];
               return apiResponse.successResponsewithData(
                 res,
                 "Post created successfully",
-                data
+                datas
               );
             });
         }
@@ -55,9 +54,8 @@ exports.createPost = [
 ];
 
 /**
- * Post Retrieved
+ * All Post Retrieved
  *
- * @param {ObjectID} postID
  *
  * @returns {Object}
  *
@@ -92,7 +90,7 @@ exports.getPost = [
 /**
  * Post Deletion
  *
- * @param {ObjectID} id
+ * @param {ObjectID} postID - the request query of the postID
  *
  * @returns {Object}
  *
@@ -102,14 +100,17 @@ exports.deletePost = [
   (req, res) => {
     try {
         //Find the post by the ID and populate the userOwner
-      PostModel.findById({ _id: req.query.id })
+      PostModel.findById({ _id: req.query.postID })
         .populate("userOwner")
         .then((user) => {
           if (user) {
             //Compare the userOwner._id and userID if equal to continue
-            if ((user.userOwner._id).valueOf() === req.query.userID) {
+            if (((user.userOwner._id).valueOf() === (req.user._id).valueOf()) || req.user.isAdmin) {
                 //If it is equal then delete the post
-                PostModel.findByIdAndDelete({_id: user._id}).then((data)=>{
+                PostModel.findByIdAndDelete({_id: user._id}).populate({
+              path: "userOwner", //populate the userOwner
+              select: "firstname lastname createdAt", //get only the properties
+            }).then((data)=>{
                     return apiResponse.successResponsewithData(res, "Post was deleted successfully", data);
                 });
             } else {
