@@ -9,9 +9,8 @@ const { validate } = require("../helpers/validation");
 
 /**
  * Comment Creation
- * @param {ObjectID} PostID
- * @param {ObjectID} CommentorID
- * @param {string} comment
+ * @param {ObjectID} postID - the request body of PostID 
+ * @param {string} comments - the request body of comments
  *
  * @returns {Object}
  *
@@ -75,8 +74,9 @@ exports.createComment = [
  * The post owner can delete the comments
  * Also, the commentor can delete his/her comment
  *
- * @param {ObjectID} id
- *
+ * @param {ObjectID} postID - the request query of postID
+ * @param {ObjectID} commentID - the request query of commentID
+ * @param {number} index - the request query of index of the comment inside the comments array
  * @returns {Object}
  *
  */
@@ -99,7 +99,7 @@ exports.deleteComment = [
           populate: { path: "user", select: "_id firstname lastname" },
         }) //populate the comments & user inside it. Get only the properties
         .then((user) => {
-          //Proceed if the owner of the post and the owner of comment
+          //Proceed if the owner of the post or the owner of the comment or the Admin
           if ((user.userOwner._id).valueOf() === (req.user._id).valueOf() || (user.comments[req.query.index].user._id).valueOf() === (req.user._id).valueOf() || req.user.isAdmin) {
             //Pull the comment from the post
             //Read the docs https://www.mongodb.com/docs/manual/reference/operator/update/pullAll/
