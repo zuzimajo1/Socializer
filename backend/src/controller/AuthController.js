@@ -17,7 +17,7 @@ const Authenticate = require("../middleware/jwt");
  * @param {string} lastname
  * @param {string} email
  * @param {string} password
- * @param {boolean} isAdmin
+ * @param {string} confirmpassword
  *
  * @returns {Object}
  *
@@ -80,7 +80,7 @@ exports.register = [
             firstname: req.body.firstname,
             lastname: req.body.lastname,
             email: req.body.email,
-            password: hash, 
+            password: hash,
           });
 
           user.save((error, data) => {
@@ -173,6 +173,7 @@ exports.login = [
 /**
  * Get User Data using given token
  * 
+ * @returns {Object}
  */
 
   exports.entry = [
@@ -209,9 +210,9 @@ exports.login = [
 /**
  * User Change Password
  *
- * @param {string} currentPassword
- * @param {string} newPassword
- * @param {string} confirmNewPassword
+ * @param {string} currentpassword - the request body of the current password
+ * @param {string} newpassword - the request body of the new password
+ * @param {string} confirmnewpassword - the request body of confirm new password
  *
  * @returns {Object}
  *
@@ -247,9 +248,8 @@ exports.changepassword = [
                 UserModel.findOneAndUpdate(
                   { email: req.user.email },
                   { password: hash },
-                  { new: true }
                 ).then((data) => {
-                    return apiResponse.successResponsewithData(res,"Updated Successfully",data);
+                    return apiResponse.successResponse(res,"Updated Successfully");
                 });
             });
           } else {
