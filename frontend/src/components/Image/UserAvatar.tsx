@@ -1,4 +1,4 @@
-import { styled, Avatar} from "@mui/material";
+import { styled, Avatar, Button} from "@mui/material";
 
 type Props = {
     width: string;
@@ -6,37 +6,18 @@ type Props = {
     src: string;
     margin?: string;
     alt: string;
-    click?: (event: React.MouseEvent<HTMLDivElement>)=> void;
-    cursor?: string;
 }
 
 const UserAvatar = (props: Props)=> {
   return (
-    <ImageContainer onClick={props.click} {...props}>
-    <Image width={props.width} height={props.height} cursor={props.cursor} src={props.src} alt={props.alt}  />
-    </ImageContainer>
+    <Image  {...props}  />
   )
 }
 
-
-const ImageContainer = styled('div')<Props>(({ cursor, margin })=>({
-  margin,
-  cursor,
-  width: "auto",
-  height: "auto",
-
-
-}))
-
-
-const Image = styled(Avatar)<{ cursor?: string, width: string, height: string, }>(({ cursor, width, height, theme})=>({
+const Image = styled(Avatar)<{  width: string, height: string, }>(({  width, height, theme})=>({
     width,
     height,
 
-
-  '&:hover': {
-    border: cursor && theme.palette.mode === "light" ? "2px solid var(--maintext-light)" : "2px solid var(--maintext-dark)",
-  }
 }))
 
 export default UserAvatar
