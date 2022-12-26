@@ -35,7 +35,7 @@ exports.createPost = [
           PostModel.find({ _id: user._id })
             .populate({
               path: "userOwner", //populate the userOwner
-              select: "firstname lastname createdAt", //get only the properties
+              select: "firstname lastname createdAt img", //get only the properties
             })
             .then((data) => {
               const datas = data[0];
@@ -67,11 +67,11 @@ exports.getPost = [
       PostModel.find()
         .populate({
           path: "userOwner", //populate the userOwner
-          select: "firstname lastname createdAt", //get only the properties
+          select: "firstname lastname createdAt img", //get only the properties
         })
         .populate({
           path: "comments",
-          populate: { path: "user", select: "firstname lastname" },
+          populate: { path: "user", select: "firstname lastname img" },
         })
         .sort({ updatedAt: -1 })
         .then((data) => {
@@ -109,7 +109,7 @@ exports.deletePost = [
                 //If it is equal then delete the post
                 PostModel.findByIdAndDelete({_id: user._id}).populate({
               path: "userOwner", //populate the userOwner
-              select: "firstname lastname createdAt", //get only the properties
+              select: "firstname lastname createdAt img", //get only the properties
             }).then((data)=>{
                     return apiResponse.successResponsewithData(res, "Post was deleted successfully", data);
                 });
