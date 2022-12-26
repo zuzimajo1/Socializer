@@ -13,7 +13,7 @@ import UserAvatar from '../Image/UserAvatar';
 import TypographyText from '../Text/TypographyText';
 import { Container } from '../../styles/Containers.styled';
 import { Comments, ICommentPost, IDispatchResponse, PostProps } from '../../utils/types';
-import { useAppDispatch } from '../../hooks/rtk.hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/rtk.hooks';
 import { userDeletePost, userPostComment } from '../../features/asyncThunk';
 import { isEmpty, isError } from '../../utils/helpers';
 
@@ -25,6 +25,8 @@ const SinglePost = (props: PostProps) => {
     const [loading, setloading] = useState<boolean>(false);
     const { enqueueSnackbar } = useSnackbar();
 
+    const auth: any = useAppSelector(state=>state?.auth);
+ 
     const [AnchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
     const open = Boolean(AnchorEl);
 
@@ -69,7 +71,7 @@ const SinglePost = (props: PostProps) => {
     return (
         <SinglePostContainer>
             <Container display="flex" width="100%" >
-                <UserAvatar width="50px" height="50px" src="https://img.freepik.com/free-photo/close-up-young-successful-man-smiling-camera-standing-casual-outfit-against-blue-background_1258-66609.jpg?w=2000" alt="User" />
+                <UserAvatar width="50px" height="50px" src={userOwner?.img || "https://qph.cf2.quoracdn.net/main-qimg-2b21b9dd05c757fe30231fac65b504dd"} alt="User" />
                 <Container width="100%" height="100%" display="flex" vertical margin="0 0 0 10px"  >
                     <Container width="100%" display="flex" justifyContent="space-between" alignItems="start">
                         <TypographyText textTransform="capitalize" fontweigth="600" lightcolor="var(--maintext-color-light)" darkcolor="var(--maintext-color-dark)" variant="subtitle1" text={`${userOwner?.firstname} ${userOwner?.lastname}`} />
@@ -95,7 +97,7 @@ const SinglePost = (props: PostProps) => {
                 ))}
             </MarginContainer2>
             <Container width="100%" height="auto" display="flex" margin="var(--padding-sm) 0 0 0">
-                <UserAvatar width="50px" height="50px" src="https://img.freepik.com/free-photo/close-up-young-successful-man-smiling-camera-standing-casual-outfit-against-blue-background_1258-66609.jpg?w=2000" alt="User" />
+                <UserAvatar width="50px" height="50px" src={auth?.user?.img || "https://qph.cf2.quoracdn.net/main-qimg-2b21b9dd05c757fe30231fac65b504dd"} alt="User" />
                 <TextField value={comment} name="comment" onChange={HandleComment} sx={{ marginLeft: "var(--padding-sm)" }} size="small" variant="outlined" type="text" fullWidth rows={1} multiline label="Add a comment..." />
             </Container>
             {comment && <Container width="100%" display="flex" justifyContent="end"   >
