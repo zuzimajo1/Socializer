@@ -34,9 +34,10 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+
 //To allow cross-origin requests
 let corsOptions = {
-  origin: "http://localhost:3000", // Compliant
+  origin: "http://127.0.0.1:5173", // Compliant
 };
 app.use(cors(corsOptions));
 
