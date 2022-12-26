@@ -63,7 +63,7 @@ const Home = () => {
         </HomeDivision>
         <HomeDivision2>
           <Post>
-            <UserAvatar margin="0 0.5rem 0" width="60px" height="60px" src="https://img.freepik.com/free-photo/close-up-young-successful-man-smiling-camera-standing-casual-outfit-against-blue-background_1258-66609.jpg?w=2000" alt="User" />
+            <UserAvatar margin="0 0.5rem 0" width="60px" height="60px" src={auth?.user?.img || "https://qph.cf2.quoracdn.net/main-qimg-2b21b9dd05c757fe30231fac65b504dd"} alt="User" />
             <ModalButton size='medium' variant="text" onClick={HandleOpen} >{`What's on your mind? ${auth?.user?.firstname}`}</ModalButton>
             <Modal open={open} onClose={HandleClose}>
               <ModalContainer>
@@ -73,7 +73,7 @@ const Home = () => {
                 </ModalWrapper>
                 <Container width="100%" height="80%" padding="var(--padding-xs) var(--padding-md)" >
                   <Container display="flex" width="100%">
-                    <UserAvatar width="50px" height="50px" src="https://img.freepik.com/free-photo/close-up-young-successful-man-smiling-camera-standing-casual-outfit-against-blue-background_1258-66609.jpg?w=2000" alt="User" />
+                    <UserAvatar width="50px" height="50px" src={auth?.user?.img || "https://qph.cf2.quoracdn.net/main-qimg-2b21b9dd05c757fe30231fac65b504dd"} alt="User" />
                     <Container width="100%" display="flex" vertical margin="0 0 0 10px"  >
                       <TypographyText variant="subtitle1" text={`${auth?.user?.firstname} ${auth?.user?.lastname}`} lightcolor="var(--text-color-light)" darkcolor="var(--text-color-dark)" />
                       <Container border="1px solid var(--border-color)" borderRadius='var(--border-radius-sm)' display="flex" justifyContent="center" alignItems="center" width="80px"  >
