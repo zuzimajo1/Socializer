@@ -263,3 +263,27 @@ exports.changepassword = [
     }
   },
 ];
+
+
+
+/**
+ * User Setting and Changing image
+ *
+ * @param {string} image - the request body of the image handle by multer
+ *
+ * @returns {Object}
+ *
+ */
+
+
+exports.setImage = [
+  (req, res)=>{
+    try {
+        UserModel.findByIdAndUpdate(req.user._id, {$set:{ img: req.file.path }}, {new: true}).then((data)=>{
+          return apiResponse.successResponsewithData(res, "Set image successfully!", data);
+        });
+    } catch (error) {
+          return apiResponse.errorResponse(res, "Cannot set the image!");
+    }
+  }
+];
