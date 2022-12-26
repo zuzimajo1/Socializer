@@ -279,8 +279,9 @@ exports.changepassword = [
 
 exports.setImage = [
   (req, res)=>{
+    const filePath = req.protocol + "://" + req.host + "/" + req.file.path;
     try {
-        UserModel.findByIdAndUpdate(req.user._id, {$set:{ img: req.file.path }}, {new: true}).then((data)=>{
+        UserModel.findByIdAndUpdate(req.user._id, {$set:{ img: filePath }}, {new: true}).then((data)=>{
           return apiResponse.successResponsewithData(res, "Set image successfully!", data);
         });
     } catch (error) {
