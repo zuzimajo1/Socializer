@@ -188,6 +188,7 @@ exports.login = [
                         lastname: user.lastname,
                         email: user.email,
                         isAdmin: user.isAdmin,
+                        img: user?.img,
                        };
                 return apiResponse.successResponsewithData(res,"Login Successfully", userData);
             });
