@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { redirect } from "react-router-dom";
 import { deleteCookie, getCookie, setCookie } from "./helpers";
-import { IUserLogin, APIResponse, ILoginResponse, IUserRegistration, IUserPost } from "./types";
+import { IUserLogin, APIResponse, ILoginResponse, IUserRegistration, IUserPost, ICommentPost, ICommentDelete, IChangePassword } from "./types";
 
 export const BaseAPIUrl = import.meta.env.VITE_REACT_APP_URL_ENDPOINT;
 
@@ -93,21 +93,13 @@ export const logout = () =>{
  */
 
 export const register = async (data: IUserRegistration): Promise<ILoginResponse>=> {
-    const registerUser = {
-        firstname: data.firstname,
-        lastname: data.lastname,
-        email: data.email,
-        password: data.password, 
-        confirmpassword: data.confirmpassword,     
-    } as IUserRegistration
-   
-
+ 
     const res = await apiRequest<ILoginResponse>(`/auth/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      data: registerUser,
+      data
     });
     if(res.status === 1){
       setCookie({ cookieName: "accessToken", value: res.data?.token });
@@ -139,13 +131,13 @@ export const getPosts = async (): Promise<APIResponse<{}>> => {
  *  @returns {APIResponse<{}>} - a promise of the returned data from the API
  */
 
-export const postPost = async (postdata: IUserPost): Promise<APIResponse<{}>> => {
+export const postPost = async (data: IUserPost): Promise<APIResponse<{}>> => {
   const res = await apiRequest<APIResponse<{}>>("/post", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    data: postdata,
+    data
   });
 
   return res;
@@ -168,6 +160,85 @@ export const deletePost = async (postID: string): Promise<APIResponse<{}>> => {
   })
 
   return res;
+}
+
+
+/**
+ * Create comment to the post
+ * 
+ * @returns {APIResponse<{}>} - a promise of the returned data from the API
+ * 
+ */
+
+export const commentPost = async (data: ICommentPost): Promise <APIResponse<{}>> =>{
+  const res = await apiRequest<APIResponse<{}>>(`/comment`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data
+  })
+
+  return res;
+}
+
+/**
+ * Delete comment from the post
+ * The ones who can delete a comment are - Post Owner, Comment Owner, Admin
+ * 
+ * @returns {APIResponse<{}>} - a promise of the returned data from the API
+ * 
+ */
+
+export const commentDelete = async(data: ICommentDelete): Promise <APIResponse<{}>>=>{
+  const { postID, commentID, index  } = data;
+  const res = await apiRequest<APIResponse<{}>>(`/comment/delete?postID=${postID}&commentID=${commentID}&index=${index}`,{
+    method: "PATCH",
+    headers:{
+      "Content-Type": "application/json",
+    }
+  });
+  return res;
+}
+
+/**
+ * Change Password by the user
+ * 
+ * @returns {APIResponse<{}>} - a promise of the returned data from the API
+ * 
+ */
+
+export const changePassword = async (data: IChangePassword): Promise<APIResponse<{}>> => {
+  const res = await apiRequest<APIResponse<{}>>("/auth/changepassword", {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data,
+  });
+  return res;
+}
+
+
+
+/**
+ * Set Image by the user
+ * 
+ * @returns {APIResponse<{}>} - a promise of the returned data from the API
+ * 
+ */
+
+export const setImage = async (file: FormData): Promise<APIResponse<{}>> => {
+  const res = await apiRequest<APIResponse<{}>>("/auth/changeimage", {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+    data: file,
+  });
+
+  return res;
+
 }
 
 

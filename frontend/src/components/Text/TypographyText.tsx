@@ -9,6 +9,7 @@ type Props = {
     darkcolor?: string;
     textTransform?: "capitalize" | "lowercase" | "uppercase",
     fontSize?: string;
+    line?:string;
 }
 
 const TypographyText = (props : Props) => {
@@ -17,7 +18,7 @@ const TypographyText = (props : Props) => {
         <Text {...props}>{props.text}</Text>
     )}
 
-const Text = styled(Typography)<Props>(({ fontSize, theme, fontweigth, textTransform, padding, lightcolor, darkcolor }) => ({
+const Text = styled(Typography)<Props>(({ fontSize, theme, fontweigth, textTransform, padding, lightcolor, darkcolor, line }) => ({
     fontSize,
     padding,
     textTransform,
@@ -25,6 +26,8 @@ const Text = styled(Typography)<Props>(({ fontSize, theme, fontweigth, textTrans
     fontFamily: "Poppins",
     color: theme.palette.mode === 'light' ? lightcolor : darkcolor ,
     textAlign: "justify",
+    textDecoration: line,
+  
    
 }))
 

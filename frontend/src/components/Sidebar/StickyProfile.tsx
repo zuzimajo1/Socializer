@@ -1,4 +1,5 @@
 import { styled } from '@mui/material'
+import { Link } from 'react-router-dom'
 
 import TypographyText from '../Text/TypographyText'
 import UserAvatar from '../Image/UserAvatar'
@@ -9,9 +10,11 @@ const StickyProfile = () => {
   const auth: any  = useAppSelector(state => state?.auth);
   return (
     <StickyContainer>
-      <UserAvatar width="60px" height="60px" src="https://img.freepik.com/free-photo/close-up-young-successful-man-smiling-camera-standing-casual-outfit-against-blue-background_1258-66609.jpg?w=2000" alt="User"/>     
-      <TypographyText lightcolor="var(--maintext-color-light)" darkcolor="var(--maintext-color-dark)" variant="subtitle1" text={`${auth?.user?.firstname} ${auth?.user?.lastname}`}/>
-    </StickyContainer>
+      <UserAvatar width="60px" height="60px" src={auth?.user?.img || "https://qph.cf2.quoracdn.net/main-qimg-2b21b9dd05c757fe30231fac65b504dd"} alt="User"/>     
+      <Link to="/profile">
+        <TypographyText line="underline" lightcolor="var(--maintext-color-light)" darkcolor="var(--maintext-color-dark)" variant="subtitle1" text={`${auth?.user?.firstname} ${auth?.user?.lastname}`}/>
+      </Link>
+    </StickyContainer>  
   )
 }
 

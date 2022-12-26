@@ -109,7 +109,7 @@ export const Post = styled('div')(({ theme }) => ({
 
 
 export const ModalButton = styled(Button)(({ theme }) =>  ({
-
+  margin: "0 var(--spacing-md)",
   width: "540px",
   height: "50px",
   borderRadius: "var(--border-radius-lg)",

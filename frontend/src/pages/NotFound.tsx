@@ -1,24 +1,35 @@
 import { styled } from "@mui/material";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { ButtonSubmit, Header, TypographyText } from '../components';
 import { FullWidthCenterVerticalContainer, MainContainer } from '../styles/Containers.styled';
+import { isLoggedIn } from "../utils/helpers";
 
 const NotFound = () => {
+  const login = isLoggedIn();
   return (
     <MainContainer>
-      <Header login />
+      <Header login={login} />
       <Error />
     </MainContainer>
   )
 }
 
 const Error = () => {
+  const login = isLoggedIn();
+  const navigate = useNavigate();
+  const HandleClick = ()=>{
+    login ? navigate("/") : navigate("/login")
+  }
+
+
   return (
     <ErrorContainer>
       <FullWidthCenterVerticalContainer>
         <TypographyText variant="h2" fontweigth="600" lightcolor="var(--maintext-color-light)" darkcolor="var(--maintext-color-dark)"  text="404 Not Found"></TypographyText>
         <TypographyText variant="h6" fontweigth="400" lightcolor="var(--text-color-light)" darkcolor="var(--text-color-dark)"  text="You are trying to access an unknown page"></TypographyText>
-        <ButtonSubmit variant="contained" title='Redirect to Home' />
+        <ButtonSubmit click={HandleClick}  variant="contained" title={`Redirect to ${login ? "Home" : "Login Page"}`} />
       </FullWidthCenterVerticalContainer>
     </ErrorContainer>
   )

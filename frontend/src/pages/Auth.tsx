@@ -73,7 +73,7 @@ const LoginForm = () => {
       
       const res: IDispatchResponse = await dispatch(authLogin(data));
       setloading(false);
-      res.payload && enqueueSnackbar("Login Successfully!", { variant: "success" });
+      res.payload ? enqueueSnackbar("Login Successfully!", { variant: "success" }) : enqueueSnackbar("Login failed!", { variant: "error" })
       navigate("/")
 
     } catch (error: any) {

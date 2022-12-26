@@ -3,27 +3,55 @@ import { Modal } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
 import PublicIcon from '@mui/icons-material/Public';
 
-import { ButtonIcon, ButtonSubmit, Header, PostContent, SinglePost, StickyAbout, StickyProfile, TypographyText, UserAvatar } from '../components';
+import { ButtonIcon, ButtonSubmit, Header, PostContent, StickyAbout, StickyProfile, TypographyText, UserAvatar } from '../components';
 import { HomeDivision, HomeDivision2, HomeDivision3, ModalButton, ModalContainer, ModalWrapper, Post, PostField } from '../styles/Home.styled'
 import { Container, FullWidthCenterPaddingContainer, MainContainer } from '../styles/Containers.styled';
-import { PostProps } from '../utils/types';
+import { IDispatchResponse, IUser, IUserPost } from '../utils/types';
 import { useAppDispatch, useAppSelector } from '../hooks/rtk.hooks';
-import { isLoggedIn } from '../utils/helpers';
-import { authEntry, fetchAllPost, refreshAll } from '../features/asyncThunk';
-
+import { isEmpty, isError, isLoggedIn } from '../utils/helpers';
+import { refreshAll, userPost } from '../features/asyncThunk';
+import { useSnackbar } from 'notistack';
 
 const Home = () => {
+
+  const auth: any = useAppSelector(state => state?.auth);
   const [open, setOpen] = useState<boolean>(false);
   const HandleOpen = () => setOpen(true);
   const HandleClose = () => setOpen(false);
   const dispatch = useAppDispatch();
-  const auth: any = useAppSelector(state => state?.auth);
- 
+  const [post, setpost] = useState<string>("");
+  const [loading, setloading] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
   const login = isLoggedIn();
 
    useEffect(()=>{
      dispatch(refreshAll());
    }, [dispatch])
+
+
+  const HandlePost = (e: React.ChangeEvent<HTMLTextAreaElement>)=> setpost(e.currentTarget.value);
+  
+
+  const HandlePostSubmit = async (e: React.MouseEvent<HTMLButtonElement>) =>{
+    e.preventDefault();
+    try {
+      if (isEmpty(post)) return enqueueSnackbar("Nothing to post", { variant: "warning" });
+      setloading(true);
+
+      const postData = {
+        post
+      } as IUserPost
+      
+      const res: IDispatchResponse = await dispatch(userPost(postData));
+      res.payload && enqueueSnackbar("Post was created!", { variant: "success" })
+      setloading(false);
+      setOpen(false)
+
+    } catch (error) {
+      isError(error);
+      setloading(false);
+    }
+  }
 
 
   return (
@@ -54,9 +82,9 @@ const Home = () => {
                       </Container>
                     </Container>
                   </Container>
-                  <PostField variant='filled' type="text" fullWidth rows={5} multiline label="What do you want to talk about?" />
+                  <PostField onChange={HandlePost} name="post" variant='filled' type="text" fullWidth rows={5} multiline label="What do you want to talk about?" />
                     <Container width="100%" display="flex" justifyContent="end">
-                    <ButtonSubmit variant="contained" title="Post" />
+                    <ButtonSubmit click={HandlePostSubmit} Loading={loading} variant="contained" title="Post" />
                     </Container>
                 </Container>
               </ModalContainer>

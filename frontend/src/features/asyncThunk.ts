@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
+  changePassword,
   commentDelete,
   commentPost,
   deletePost,
@@ -9,7 +10,8 @@ import {
   logout,
   postPost,
   register,
-  changePassword,
+  setImage,
+  
 } from "../utils/apiCalls";
 import { isError } from "../utils/helpers";
 import {
@@ -243,9 +245,30 @@ export const userChangePassword = createAsyncThunk(
       const res: APIResponse<{}> = await changePassword(data);
       if (res.status === 0) throw new Error(res.message);
       return res;
-    } catch (error) {
+    } catch (error: any) {
       const message = isError(error);
       return thunkAPI.rejectWithValue(message);
     }
   }
 );
+
+
+/**
+ * Async Thunk for setting/changing image by the user
+ * 
+ * @returns {APIResponse<{}>} - return data from the API
+ */
+
+export const userSetImage = createAsyncThunk(
+  "auth/setImage",
+  async (data: FormData, thunkAPI)=>{
+    try {
+      const res: APIResponse<{}> = await setImage(data);
+        if (res.status === 0) throw new Error(res.message);
+        return res;
+    } catch (error: any) {
+        const message = isError(error);
+        return thunkAPI.rejectWithValue(message);
+    }
+  }
+)

@@ -1,20 +1,28 @@
-import React, { useState } from 'react'
-import { Menu, MenuItem, ListItemIcon, Modal, styled } from '@mui/material'
+import React, { useState, useEffect } from 'react'
+import { Menu, MenuItem, ListItemIcon, Modal, styled, Badge, Avatar } from '@mui/material'
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 import CloseIcon from '@mui/icons-material/Close';
 import SaveIcon from '@mui/icons-material/Save';
 import { useSnackbar } from "notistack"
+import { useNavigate } from 'react-router-dom';
+import CameraAltIcon from '@mui/icons-material/CameraAlt';
 
-import { ButtonIcon, ButtonSubmit, Header, TypographyText, UserAvatar, CheckPassword } from '../components'
+import { ButtonIcon, ButtonSubmit, Header, TypographyText, UserAvatar, CheckPassword, UserChangeImage } from '../components'
 import {  Container, FullWidthCenterPaddingContainer, MainContainer } from '../styles/Containers.styled'
 import { ModalContainer, ModalWrapper } from '../styles/Home.styled';
 import { Form, Input } from '../styles/Auth.styled';
+import { isEmpty, isError, isLoggedIn } from '../utils/helpers';
+import { useAppDispatch, useAppSelector } from '../hooks/rtk.hooks';
+import { refreshAll, userChangePassword, userSetImage } from '../features/asyncThunk';
+import { IChangePassword, IDispatchResponse } from '../utils/types';
 
 const Profile = () => {
     const [AnchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
     const open = Boolean(AnchorEl);
+    const auth: any = useAppSelector(state => state?.auth);
+    const dispatch = useAppDispatch();
 
-    const HandleClick = (event: React.MouseEvent<HTMLDivElement>) => setAnchorEl(event.currentTarget);
+  
     const HandleClose = () => setAnchorEl(null);
     const [openModalImage, setOpenModalImage] = useState<boolean>(false);
     const [openModalPassword, setOpenModalPassword] = useState<boolean>(false);
@@ -22,18 +30,24 @@ const Profile = () => {
         setOpenModalImage(true);
         HandleClose();
     }
-
-    const HandleOpenModalChangePassword = ()=>{
+    const HandleOpenModalChangePassword = (event: React.MouseEvent<HTMLButtonElement>)=>{
+        event.preventDefault();
         setOpenModalPassword(true);
         HandleClose();
     }
-    
+
+    useEffect(()=>{
+        dispatch(refreshAll());
+    },[dispatch])
+
+
+
     return (
         <MainContainer>
             <Header login />
             <FullWidthCenterPaddingContainer>
                 <Container margin="var(--spacing-xl) 0" borderRadius="var(--border-radius-sm)" width="500px" display="flex" alignItems="center" justifyContent="center" vertical height="auto" padding="var(--padding-md) var(--padding-lg)" backgroundColorLight="var(--background-color-light)" backgroundColorDark="var(--background-color-dark)" >
-                    <UserAvatar cursor="pointer" click={HandleClick} margin="var(--spacing-md) 0 var(--spacing-md) 0" src="https://img.freepik.com/free-photo/close-up-young-successful-man-smiling-camera-standing-casual-outfit-against-blue-background_1258-66609.jpg?w=2000" alt="User" width="110px" height="110px" />
+                    <UserChangeImage setAnchorEl={setAnchorEl}/>
                     <Menu sx={{ padding: "var(--padding-sm) var(--padding-md)" }} anchorEl={AnchorEl} open={open} onClose={HandleClose}>
                         <MenuItem onClick={HandleOpenModalImage}>
                             <ListItemIcon>
@@ -43,11 +57,10 @@ const Profile = () => {
                                 Change Profile Picture
                             </ListItemIcon>
                         </MenuItem>
-                     
                     </Menu>
                     <ChangePictureModal modalImage={openModalImage} CloseModal={setOpenModalImage} />
                     <ChangePasswordModal modalImage={openModalPassword} CloseModal={setOpenModalPassword} />
-                    <TypographyText padding="var(--padding-sm) 0" text="Zuzim Ajo" fontweigth="600" variant="h4" lightcolor="var(--text-color-light)" darkcolor="var(--text-color-dark)" />
+                    <TypographyText padding="var(--padding-sm) 0" text={`${auth.user?.firstname} ${auth.user?.lastname}`} fontweigth="600" variant="h4" lightcolor="var(--text-color-light)" darkcolor="var(--text-color-dark)" />
                     <ButtonSubmit click={HandleOpenModalChangePassword} title="Change Password" variant="outlined"  />
                 </Container>
             </FullWidthCenterPaddingContainer>
@@ -65,11 +78,10 @@ interface Props {
 
 const ChangePictureModal: React.FC<Props> = ({ modalImage, CloseModal}: Props) => {
     const { enqueueSnackbar } = useSnackbar();
-    const [File, setFile] = useState({});
+    const [File, setFile] = useState([] as any);
     const [Img, setImg] = useState<string>("");
     const [loading, setloading] = useState<boolean>(false);
-
-    const HandleButton = () => setloading(true);
+    const dispatch = useAppDispatch();
 
     const HandleImage = (event: React.ChangeEvent<HTMLInputElement>) => {
         event.preventDefault();
@@ -86,6 +98,23 @@ const ChangePictureModal: React.FC<Props> = ({ modalImage, CloseModal}: Props) =
             }
         }
     }
+
+
+    const HandleButton = async (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+        setloading(true);
+        const uploadData = new FormData();
+        uploadData.append("image", File);
+        try {
+            const res: IDispatchResponse = await dispatch(userSetImage(uploadData));
+            console.log(res);
+            setloading(false);
+            CloseModal(false);
+        } catch (error: any) {
+            isError(error);
+        }
+    };
+   
 
 
     return (
@@ -108,7 +137,7 @@ const ChangePictureModal: React.FC<Props> = ({ modalImage, CloseModal}: Props) =
                             <ButtonSubmit click={HandleButton} Loading={loading} Icon={SaveIcon} padding="var(--padding-xs) var(--padding-md)" variant="contained" title="Save" />
                         </>
                     }
-                    <InputFile type="file" id="img" name="img" onChange={HandleImage} ></InputFile>
+                    <InputFile type="file" id="img" name="image" onChange={HandleImage} ></InputFile>
                 </Container>
             </ModalContainer>
         </Modal>
@@ -121,6 +150,47 @@ const ChangePictureModal: React.FC<Props> = ({ modalImage, CloseModal}: Props) =
 const ChangePasswordModal: React.FC<Props> = ({ modalImage, CloseModal }: Props)=> {
     const [check, setcheck] = useState<boolean>(false);
 
+    const [data, setdata] = useState({} as IChangePassword);
+    const { enqueueSnackbar } = useSnackbar();
+    const [loading, setloading] = useState<boolean>(false);
+    const dispatch = useAppDispatch();
+
+    const HandleInputs = (e: React.ChangeEvent<HTMLInputElement>)=>{
+        e.preventDefault();
+        setdata({...data, [e.currentTarget.name]: e.currentTarget.value});
+    }
+
+    const HandleChangePassword = async (e: React.MouseEvent<HTMLButtonElement>)=>{
+        e.preventDefault();
+        const { currentpassword, newpassword, confirmnewpassword } = data;
+
+        try {
+            if (isEmpty(currentpassword)) return enqueueSnackbar("Field current password is required", { variant: "warning" });
+            if (isEmpty(newpassword)) return enqueueSnackbar("Field new password is required", { variant: "warning" });
+            if (newpassword.length <= 4) return enqueueSnackbar("Password must be 5 characters or greater", { variant: "warning" });
+            if (isEmpty(confirmnewpassword)) return enqueueSnackbar("Field confirm new password is required", { variant: "warning" });
+            if (newpassword !== confirmnewpassword) return enqueueSnackbar("Password didn't match", { variant: "warning" });
+            
+            setloading(true);
+            const data = {
+                currentpassword,
+                newpassword,
+                confirmnewpassword,
+            } as IChangePassword
+
+            const res: IDispatchResponse =  await dispatch(userChangePassword(data));
+            res.payload ? enqueueSnackbar("Change password successfully!", { variant: "success" }) : enqueueSnackbar("Change Password failed!", { variant: "error" })
+            setloading(false);
+            CloseModal(false);
+
+        } catch (error: any) {
+            isError(error);
+        }
+    }
+
+
+
+
     return(
         <Modal open={modalImage} onClose={() => CloseModal(false)}>
             <ModalContainer>
@@ -130,12 +200,12 @@ const ChangePasswordModal: React.FC<Props> = ({ modalImage, CloseModal }: Props)
                 </ModalWrapper>
                 <Container width="100%" display="flex" padding="var(--padding-md) 0" justifyContent="center" alignItems="center">
                     <Form>
-                        <Input size='small' label='Current Password' name='currentpassword' type="text" />
-                        <Input size='small' label='New Password' name='newpassword' type={check ? 'text' : 'password'} />
-                        <Input size='small' label='Confirm Password' name='confirmnewpassword' type={check ? 'text' : 'password'}  />
+                        <Input size='small' label='Current Password' name='currentpassword' type="text" onChange={HandleInputs}/>
+                        <Input size='small' label='New Password' name='newpassword' type={check ? 'text' : 'password'} onChange={HandleInputs} />
+                        <Input size='small' label='Confirm Password' name='confirmnewpassword' type={check ? 'text' : 'password'} onChange={HandleInputs} />
                         <CheckPassword Check={setcheck} />
-                        <ButtonSubmit variant="contained" title="Save" />
-                    </Form>
+                        <ButtonSubmit Loading={loading} click={HandleChangePassword} variant="contained" title="Save" />
+                    </Form> 
                 </Container>
             </ModalContainer>
         </Modal>

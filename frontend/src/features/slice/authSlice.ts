@@ -6,7 +6,7 @@ import {
 
 import { isLoggedIn } from "../../utils/helpers";
 import { APIResponse, ILoginResponse, IUser } from "../../utils/types";
-import { authEntry, authLogin, authLogout, authRegister, userChangePassword } from "../asyncThunk";
+import { authEntry, authLogin, authLogout, authRegister, userChangePassword, userSetImage } from "../asyncThunk";
 
 const status = isLoggedIn();
 
@@ -81,14 +81,25 @@ const authSlice: any = createSlice({
       .addCase(authLogout.rejected, (state: IAuthState) => {
         state.isLoading = false;
       })
-      .addCase(userChangePassword.pending, (state: IAuthState)=>{
+      .addCase(userChangePassword.pending, (state: IAuthState) => {
         state.isLoading = true;
       })
-      .addCase(userChangePassword.fulfilled, (state: IAuthState)=>{
+      .addCase(userChangePassword.fulfilled, (state: IAuthState) => {
         state.isLoading = false;
       })
-      .addCase(userChangePassword.rejected, (state: IAuthState)=>{
+      .addCase(userChangePassword.rejected, (state: IAuthState) => {
         state.isLoading = false;
+      })
+      .addCase(userSetImage.pending, (state: IAuthState)=>{
+        state.isLoading = true;
+      })
+      .addCase(userSetImage.fulfilled, (state: IAuthState, action: PayloadAction<APIResponse<{}>>)=>{
+        const data = action.payload.data as IUser;
+         state.isLoading = false;
+         state.loggedIn = true;
+      })
+      .addCase(userSetImage.rejected, (state: IAuthState)=>{
+         state.isLoading = false;
       })
   },
 });

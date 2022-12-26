@@ -146,8 +146,3 @@ export const isError = (error: any): void => {
 }
 
 
-export const dispatchPost = ()=>{
-  const dispatch = useAppDispatch();
-  dispatch(fetchAllPost());
-
-}

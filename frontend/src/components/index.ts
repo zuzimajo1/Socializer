@@ -13,3 +13,4 @@ export { default as DeleteMenu } from "./Header/DeleteMenu";
 export { default as UserAvatar } from "./Image/UserAvatar";
 export { default as PostContent } from "./Content/PostContents";
 export { default as SkeletonContents } from "./Content/SkeletonContents";
+export { default as UserChangeImage } from "./Image/UserChangeImage";
