@@ -5,7 +5,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useNavigate } from 'react-router-dom';
 
-import { useAppDispatch } from '../../hooks/rtk.hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/rtk.hooks';
 import UserAvatar from '../Image/UserAvatar';
 import { authLogout } from '../../features/asyncThunk';
 
@@ -15,6 +15,7 @@ export const UserMenu = () => {
   const open = Boolean(AnchorEl);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const auth: any = useAppSelector(state => state.auth);
 
   const HandleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -35,7 +36,7 @@ export const UserMenu = () => {
   return (
     <MenuContainer>
       <MenuButton variant="text" onClick={HandleClick}>
-        <UserAvatar width="40px" height="40px" margin="0 1rem 0 0.5rem" src="https://img.freepik.com/free-photo/close-up-young-successful-man-smiling-camera-standing-casual-outfit-against-blue-background_1258-66609.jpg?w=2000" alt="User" />
+        <UserAvatar width="40px" height="40px" margin="0 1rem 0 0.5rem" src={auth?.user?.img || "https://qph.cf2.quoracdn.net/main-qimg-2b21b9dd05c757fe30231fac65b504dd"} alt="User" />
         <ArrowDropDownIcon fontSize='medium' sx={{ color: theme.palette.mode === 'light' ? 'var(--maintext-light)' : 'var(--maintext-dark)' }} />
       </MenuButton>
       <Menu sx={{ padding: "var(--padding-sm) var(--padding-md)" }} anchorEl={AnchorEl} open={open} onClose={HandleClose}>
