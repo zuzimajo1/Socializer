@@ -4,7 +4,7 @@
   "description": "backend for the project: Socializer - a social media platform that allows user to post on newsfeed and comment.",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "node app.js",
     "test": "mocha --timeout 10000",
     "eslint:fix": "npx eslint --fix ."
   },
