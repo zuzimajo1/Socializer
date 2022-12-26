@@ -44,11 +44,11 @@ exports.createComment = [
             PostModel.findOne({ _id: data._id })
               .populate({
                 path: "userOwner", //populate the userOwner
-                select: "_id firstname lastname createdAt", //get only the properties
+                select: "_id firstname lastname createdAt img", //get only the properties
               })
               .populate({
                 path: "comments",
-                populate: { path: "user", select: "_id firstname lastname" }, //populate the comments & user inside it. Get only the properties
+                populate: { path: "user", select: "_id firstname lastname img" }, //populate the comments & user inside it. Get only the properties
               })
               .then((resData) => {
                 if (resData)
@@ -92,11 +92,11 @@ exports.deleteComment = [
       PostModel.findById({ _id: req.query.postID })
         .populate({
           path: "userOwner", //populate the userOwner
-          select: "_id firstname lastname createdAt", //get only the properties
+          select: "_id firstname lastname createdAt img", //get only the properties
         })
         .populate({
           path: "comments",
-          populate: { path: "user", select: "_id firstname lastname" },
+          populate: { path: "user", select: "_id firstname lastname img" },
         }) //populate the comments & user inside it. Get only the properties
         .then((user) => {
           //Proceed if the owner of the post or the owner of the comment or the Admin
@@ -110,11 +110,11 @@ exports.deleteComment = [
             )
               .populate({
                 path: "userOwner", //populate the userOwner
-                select: "_id firstname lastname createdAt", //get only the properties
+                select: "_id firstname lastname createdAt img", //get only the properties
               })
               .populate({
                 path: "comments",
-                populate: { path: "user", select: "_id firstname lastname" },
+                populate: { path: "user", select: "_id firstname lastname img" },
               }) //populate the comments & user inside it. Get only the properties
               .then((data) => {
                 if (data)
