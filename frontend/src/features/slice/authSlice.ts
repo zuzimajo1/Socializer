@@ -96,6 +96,7 @@ const authSlice: any = createSlice({
       .addCase(userSetImage.fulfilled, (state: IAuthState, action: PayloadAction<APIResponse<{}>>)=>{
         const data = action.payload.data as IUser;
          state.isLoading = false;
+         state.user = data;
          state.loggedIn = true;
       })
       .addCase(userSetImage.rejected, (state: IAuthState)=>{
