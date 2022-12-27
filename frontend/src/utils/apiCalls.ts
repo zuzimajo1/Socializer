@@ -228,13 +228,13 @@ export const changePassword = async (data: IChangePassword): Promise<APIResponse
  * 
  */
 
-export const setImage = async (file: FormData): Promise<APIResponse<{}>> => {
+export const setImage = async (url: string): Promise<APIResponse<{}>> => {
   const res = await apiRequest<APIResponse<{}>>("/auth/changeimage", {
     method: "PATCH",
     headers: {
-      "Content-Type": "multipart/form-data",
+      "Content-Type": "application/json",
     },
-    data: file,
+    data: {img: url},
   });
 
   return res;
