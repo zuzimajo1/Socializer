@@ -261,9 +261,9 @@ export const userChangePassword = createAsyncThunk(
 
 export const userSetImage = createAsyncThunk(
   "auth/setImage",
-  async (data: FormData, thunkAPI)=>{
+  async (url: string, thunkAPI)=>{
     try {
-      const res: APIResponse<{}> = await setImage(data);
+      const res: APIResponse<{}> = await setImage(url);
         if (res.status === 0) throw new Error(res.message);
         return res;
     } catch (error: any) {
