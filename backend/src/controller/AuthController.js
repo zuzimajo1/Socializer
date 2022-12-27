@@ -270,7 +270,7 @@ exports.changepassword = [
 /**
  * User Setting and Changing image
  *
- * @param {string} image - the request body of the image handle by multer
+ * @param {string} image - the request body of the image containing the download URL of the profile image uploading by the user
  *
  * @returns {Object}
  *
