@@ -6,7 +6,9 @@ import SaveIcon from '@mui/icons-material/Save';
 import { useSnackbar } from "notistack"
 import { useNavigate } from 'react-router-dom';
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
+import { getStorage, ref, uploadBytesResumable, getDownloadURL  } from "firebase/storage";
 
+import { firebaseapp } from '../firebase';
 import { ButtonIcon, ButtonSubmit, Header, TypographyText, UserAvatar, CheckPassword, UserChangeImage } from '../components'
 import {  Container, FullWidthCenterPaddingContainer, MainContainer } from '../styles/Containers.styled'
 import { ModalContainer, ModalWrapper } from '../styles/Home.styled';
@@ -106,8 +108,26 @@ const ChangePictureModal: React.FC<Props> = ({ modalImage, CloseModal}: Props) =
         const uploadData = new FormData();
         uploadData.append("image", File);
         try {
-            const res: IDispatchResponse = await dispatch(userSetImage(uploadData));
-            console.log(res);
+            const storage = getStorage(firebaseapp);
+            // Upload file and metadata to the object 'images/mountains.jpg'
+            const storageRef = ref(storage, "images/" + File.name);
+            const uploadTask = uploadBytesResumable(storageRef, File);
+            
+            uploadTask.on('state_changed', (snapshot)=>{
+
+                 // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                enqueueSnackbar('Upload is ' + progress.toFixed() + '% done', { variant: "info", autoHideDuration: 500});
+            },
+            (error)=> enqueueSnackbar('Upload failed', { variant: "error" }),
+             ()=>{
+                  // Upload completed successfully, now we can get the download URL
+            getDownloadURL(uploadTask.snapshot.ref).then( async (downloadURL)=>{
+                const res: IDispatchResponse = await dispatch(userSetImage(downloadURL));
+                res.payload ? enqueueSnackbar("Profile image changed successfully!", { variant: "success" }) : enqueueSnackbar("Changing profile image failed!", { variant: "error" })
+            })})
+
+        
             setloading(false);
             CloseModal(false);
         } catch (error: any) {
