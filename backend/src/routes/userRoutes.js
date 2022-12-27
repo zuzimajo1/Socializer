@@ -2,7 +2,7 @@ var router = require("express").Router();
 
 var AuthControllers = require("../controller/AuthController");
 var Authenticate = require("../middleware/jwt");
-const { upload } = require("../helpers/fileHelper");
+
 
 router.post("/auth/register", AuthControllers.register);
 router.post("/auth/login", AuthControllers.login);
