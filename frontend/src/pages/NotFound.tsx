@@ -5,9 +5,17 @@ import { useNavigate } from "react-router-dom";
 import { ButtonSubmit, Header, TypographyText } from '../components';
 import { FullWidthCenterVerticalContainer, MainContainer } from '../styles/Containers.styled';
 import { isLoggedIn } from "../utils/helpers";
+import { useAppDispatch } from "../hooks/rtk.hooks";
+import { refreshAll } from "../features/asyncThunk";
+
 
 const NotFound = () => {
   const login = isLoggedIn();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(refreshAll());
+  }, [dispatch])
   return (
     <MainContainer>
       <Header login={login} />
