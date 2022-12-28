@@ -3,7 +3,7 @@ import { redirect } from "react-router-dom";
 import { deleteCookie, getCookie, setCookie } from "./helpers";
 import { IUserLogin, APIResponse, ILoginResponse, IUserRegistration, IUserPost, ICommentPost, ICommentDelete, IChangePassword } from "./types";
 
-export const BaseAPIUrl = import.meta.env.VITE_REACT_APP_URL_ENDPOINT;
+export const BaseAPIUrl = "https://socializer.onrender.com";
 
 
 /**
