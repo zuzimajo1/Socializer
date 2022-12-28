@@ -28,7 +28,7 @@ const AuthWrapper = () => {
     <FullPaddingContainer>
       <FullWidthStartVertificalContainer alignItems="start">
         <TypographyText fontSize="clamp(2.7rem, 7vw, 3.5rem)" fontweigth="500" lightcolor="var(--maintext-light)" darkcolor="var(--maintext-dark)" variant="h2" text="Socializer" />
-        <TypographyText fontSize="clamp(1rem, 3vw, var(--font-size-2xl))" lightcolor="var(--subtext-light)" darkcolor="var(--subtext-dark)" fontweigth="400" variant="h2" text="Socializer" />
+        <TypographyText fontSize="clamp(1rem, 3vw, var(--font-size-2xl))" lightcolor="var(--subtext-light)" darkcolor="var(--subtext-dark)" fontweigth="400" variant="h2" text="Let your friends know what's on your mind." />
         <Image src={People} alt="People"></Image>
       </FullWidthStartVertificalContainer>
       <FullWidthCenterVerticalContainer>
