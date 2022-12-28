@@ -37,7 +37,7 @@ app.use(express.urlencoded({ extended: false }));
 
 //To allow cross-origin requests
 let corsOptions = {
-  origin: "http://127.0.0.1:5173", // Compliant
+  origin: "https://socializerph.netlify.app", // Compliant
 };
 app.use(cors(corsOptions));
 
