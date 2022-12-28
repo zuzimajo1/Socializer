@@ -89,9 +89,11 @@ export const FullWidthCenterPaddingContainer = styled('div')(({theme})=>({
     paddingTop: "4.5rem",
 
     [theme.breakpoints.down("lg")]: {
+        paddingTop: "4rem",
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
+        paddingBottom: "16px"
 
     }
 }))
