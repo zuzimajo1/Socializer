@@ -26,7 +26,7 @@
 ## 🖼️ Preview
 
 ### Login
-<img align="center"  width="300px" height="600px" src="../Socializer/frontend/public/images/Auth-login.jpg" alt="secretmepic"></img>
+<img align="center"  width="300px" height="600px" src="../frontend/public/images/Auth-login.jpg" alt="secretmepic"></img>
 
 ### Register
 ![Register]("../Socializer/frontend/public/images/Auth-register.jpg")
