@@ -26,10 +26,10 @@
 ## 🖼️ Preview
 
 ### Login
-![Login](../Socializer/frontend/public/images/Auth-login.jpg)
+![Login]("../Socializer/frontend/public/images/Auth-login.jpg")
 
 ### Register
-![Register](../Socializer/frontend/public/images/Auth-register.jpg)
+![Register]("../Socializer/frontend/public/images/Auth-register.jpg")
 
 ### Home
 <img align="center"  width="300px" height="600px" src="./assets/images/Login.jpg" alt="secretmepic"></img>
