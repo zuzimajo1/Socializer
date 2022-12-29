@@ -42,5 +42,5 @@
 ### Change Password
 ![ChangePassword](ChangePassword.jpg)
 
-### Change Password
+### Not Found Page
 ![NotFoundPage](NotFoundPage.jpg)
