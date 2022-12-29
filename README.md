@@ -1,6 +1,6 @@
-# Bermudez Mobile Application
+# Socializer
 
-### Bermudez Mobile Application is an application that was deployed in Bermudez Medical Clinic located at Brgy. San Isidro, Placer, SDN.
+### Socializer is a website application that allows user to post anything what's on their mind and comment to other post.
 
 ## ⚒️ Built with the following technologies:
 
