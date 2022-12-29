@@ -16,10 +16,12 @@
 ## ✨ Features
 
 
-- The patient can set appointment
-- The patient can see his/her appointment on list
-- The admin can see the list of all appointment of the patients
-- The admin can approve or deny the appointment
+- The user can login and register
+- The user can post and comment to the other post
+- The owner of the post can delete his/her post and also the comment within it.
+- The owner of the comment can delete his/her post
+- The user can change his/her own profile picture
+- The user can change his/her current password
     
 
 
@@ -29,13 +31,16 @@
 ![Login](Auth-login.jpg)
 
 ### Register
-![Register]("../Socializer/frontend/public/images/Auth-register.jpg")
+![Register](Auth-register.jpg)
 
 ### Home
-<img align="center"  width="300px" height="600px" src="./assets/images/Login.jpg" alt="secretmepic"></img>
+![Home](Home.jpg)
 
 ### Profile
-<img align="center"  width="300px" height="600px" src="./assets/images/Home.jpg" alt="secretmepic"></img>
+![Profile](Profile.jpg)
 
 ### Change Password
-<img align="center"  width="300px" height="600px" src="./assets/images/Appointment.jpg" alt="secretmepic"></img>
+![ChangePassword](ChangePassword.jpg)
+
+### Change Password
+![NotFoundPage](NotFoundPage.jpg)
